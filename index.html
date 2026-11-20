@@ -34,7 +34,8 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 #ui button.on,#playerActions button.on{background:linear-gradient(135deg,#ff4468,#ff7a45);border-color:transparent}
 #ui svg,#playerActions svg,#b-clean svg,#lh svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:block}
 #b-clean svg{width:18px;height:18px}#b-clean .sl{display:none}#stage.clean #b-clean .sl{display:block}
-#b-back{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px}
+#b-back{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translateX(-50%)}
+#b-back:active{transform:translateX(-50%) scale(.92)}
 #b-toggle{position:absolute;left:50%;top:50%;width:68px!important;height:68px!important;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.22);background:rgba(10,12,18,.42);border-radius:50%;box-shadow:0 8px 30px rgba(0,0,0,.24)}
 #b-toggle svg{width:28px;height:28px;stroke-width:2.3}
 #b-toggle:active{transform:translate(-50%,-50%) scale(.94)}
@@ -50,10 +51,8 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 #previewTime{color:#fff;font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 #seekPreview.no-thumb{padding:7px 11px}
 #seekPreview.no-thumb #seekThumb{display:none}
-#playerActions{display:flex;align-items:center;justify-content:space-between;gap:8px}
-#playerActions button{width:39px;height:39px}
-#b-pip:disabled{opacity:.35;cursor:wait}
-#b-download{border-color:rgba(255,255,255,.2)}
+#playerActions{display:flex;align-items:center;justify-content:center;gap:12px}
+#playerActions button{width:40px;height:40px}
 #b-clean{position:absolute;z-index:5;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;bottom:auto;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(18,18,22,.4);color:#fff;opacity:.72;padding:0;display:flex;align-items:center;justify-content:center}
 #stage.clean #ui,#stage.clean #controlsDock{display:none}
 #stage.aud #slide iframe{top:50%;left:50%;width:96px;height:54px;transform:translate(-50%,-50%);opacity:.6;border-radius:8px}
@@ -67,12 +66,14 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 .player-status .load-spinner{width:15px;height:15px;border-color:rgba(255,255,255,.3);border-top-color:#ff6684}
 #hint{position:absolute;z-index:3;left:50%;transform:translateX(-50%);max-width:86%;bottom:calc(env(safe-area-inset-bottom,0px) + 122px);text-align:center;color:#fff;font-size:12px;padding:7px 12px;border-radius:12px;background:rgba(0,0,0,.48);pointer-events:none;transition:opacity .6s}
 #listTabs{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid #2a2d35}
-#b-pip:disabled{opacity:.35;cursor:wait}
 #stage.clean #b-clean{opacity:.25}
+#ui,#controlsDock,#b-clean{transition:opacity .24s ease,visibility .24s ease}
+#stage.controls-hidden #ui,#stage.controls-hidden #controlsDock,#stage.controls-hidden #b-clean{opacity:0;visibility:hidden;pointer-events:none}
+#stage.controls-hidden #ui button,#stage.controls-hidden #controlsDock button,#stage.controls-hidden #b-clean{pointer-events:none}
 @media(max-width:420px){
  #controlsDock{left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom,0px) + 10px);padding:10px 10px 9px;border-radius:17px}
- #playerActions{gap:5px}
- #playerActions button{width:36px;height:36px}
+ #playerActions{gap:10px}
+ #playerActions button{width:38px;height:38px}
  #seekThumb{width:144px;height:81px}
 }
 
@@ -81,7 +82,7 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 .list-tab.on{background:linear-gradient(135deg,#ff4468,#ff7a45);border-color:transparent;color:#fff}
 #pipVideo{position:fixed;left:0;top:0;width:320px;height:180px;opacity:.001;pointer-events:none;z-index:4;background:#000}
 #b-clean{position:absolute;z-index:4;right:17px;bottom:calc(env(safe-area-inset-bottom,0px) + 35px);width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(18,18,22,.35);color:#fff;opacity:.5;padding:0;display:flex;align-items:center;justify-content:center}
-#stage.clean #ui,#stage.clean #bar{display:none}
+#stage.clean #ui,#stage.clean #controlsDock{display:none}
 #list{position:absolute;inset:0;z-index:6;background:#0b0b0d;display:none;flex-direction:column;direction:rtl;color:#f1f2f5}
 #list.open{display:flex}
 #lh{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 12px;font-weight:700;font-size:17px;border-bottom:1px solid #2a2d35}
@@ -92,11 +93,6 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 .row img{width:88px;height:50px;object-fit:cover;border-radius:6px;background:#1a1c21;flex:none}
 .row span{font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-width:0}
 .row i{font-style:normal;color:#8a8f9a;font-size:12px;width:26px;flex:none;text-align:center}
-#bar{position:absolute;z-index:4;top:calc(env(safe-area-inset-top,0px) + 12px);left:72px;right:12px;height:48px;display:flex;align-items:center;gap:10px;direction:ltr}
-#trk{flex:1;height:40px;display:flex;align-items:center;touch-action:none;cursor:pointer}
-#tk{width:100%;height:5px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden}
-#pf{height:100%;background:var(--ac);transform-origin:left;transform:scaleX(0);will-change:transform}
-#tm{color:#fff;font-size:12px;font-variant-numeric:tabular-nums;min-width:92px;text-align:center;padding:4px 8px;border-radius:10px;background:rgba(0,0,0,.4)}
 @media (orientation:portrait){
 #stage.land{inset:auto;top:0;left:0;width:100dvh;height:100dvw;transform-origin:0 0;transform:translateX(100dvw) rotate(90deg)}
 #stage.land:not(.aud) #slide.fill iframe{width:177.78dvw}
@@ -244,8 +240,6 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
       <button id="b-shuf" aria-label="Shuffle" data-a="shuf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="m4 4 5 5"/></svg></button>
       <button id="b-aud" aria-label="Audio only" data-a="aud2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></button>
       <button id="b-list" aria-label="List" data-a="list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
-      <button id="b-pip" aria-label="Picture in picture" data-a="pip" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><rect x="12" y="12" width="7" height="5" rx="1"/></svg></button>
-      <button id="b-download" aria-label="Open official download options" data-a="download"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5"/><path d="M5 17v3h14v-3"/></svg></button>
     </div>
   </div>
   <button id="b-clean" aria-label="Hide buttons" data-a="clean"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button>
@@ -266,6 +260,6 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 
 
 
-<script src="./app.js?v=5" defer></script>
+<script src="./app.js?v=6" defer></script>
 </body>
 </html>
