@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -16,7 +16,7 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0e11;--fg:#f1f2f5;--card:#181a1f;--mut:#9ba0ab;--bd:#2a2d35;--ac:#ff4468;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#0d0e11;--fg:#f1f2f5;--card:#181a1f;--mut:#9ba0ab;--bd:#2a2d35;--ac:#ff4468;color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,system-ui,"Segoe UI",Tahoma,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,system-ui,"Segoe UI",Tahoma,sans-serif;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 p{margin:0;color:var(--mut);line-height:1.7;font-size:15px}
 html[dir=ltr] #list{direction:ltr}
 html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
@@ -26,7 +26,7 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 #slide.fill iframe{top:0;left:50%;height:100%;width:177.78dvh;transform:translateX(-50%)}
 #slide.fit iframe{top:50%;left:0;width:100%;height:56.25vw;transform:translateY(-50%)}
 #touch{position:absolute;inset:0;z-index:2}
-#ui button{position:absolute;z-index:3;width:46px;height:46px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(18,18,22,.5);color:#fff;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .1s,background .15s}
+#ui button{position:absolute;z-index:3;width:46px;height:46px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(18,18,22,.5);color:#fff;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .1s,background .15s;cursor:pointer}
 #ui button:active{transform:scale(.92)}
 #ui button.on{background:linear-gradient(135deg,#ff4468,#ff7a45);border-color:transparent}
 #ui svg,#b-clean svg,#lh svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:block}
@@ -49,14 +49,14 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 .list-tab{flex:1;min-height:40px;border:1px solid #343741;border-radius:12px;background:#17191e;color:#c9cbd2;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 .list-tab.on{background:linear-gradient(135deg,#ff4468,#ff7a45);border-color:transparent;color:#fff}
 #pipVideo{position:fixed;left:0;top:0;width:320px;height:180px;opacity:.001;pointer-events:none;z-index:4;background:#000}
-#b-clean{position:absolute;z-index:4;right:17px;bottom:calc(env(safe-area-inset-bottom,0px) + 35px);width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(18,18,22,.35);color:#fff;opacity:.5;padding:0;display:flex;align-items:center;justify-content:center}
+#b-clean{position:absolute;z-index:4;right:17px;bottom:calc(env(safe-area-inset-bottom,0px) + 35px);width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(18,18,22,.35);color:#fff;opacity:.5;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
 #stage.clean #ui,#stage.clean #bar{display:none}
 #list{position:absolute;inset:0;z-index:6;background:#0b0b0d;display:none;flex-direction:column;color:#f1f2f5}
 #list.open{display:flex}
 #lh{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 12px;font-weight:700;font-size:17px;border-bottom:1px solid #2a2d35}
 #lh button{width:40px;height:40px;border-radius:50%;border:0;background:#26282e;color:#fff;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
 #rows{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:6px 0 calc(env(safe-area-inset-bottom,0px) + 16px)}
-.row{display:flex;gap:12px;align-items:center;padding:8px 16px;cursor:pointer;user-select:none}
+.row{display:flex;gap:12px;align-items:center;padding:10px 16px;cursor:pointer;user-select:none;-webkit-user-select:none;min-height:66px;box-sizing:border-box}
 .row.cur{background:#1d2026;box-shadow:inset 3px 0 0 var(--ac)}
 html[dir=rtl] .row.cur{box-shadow:inset -3px 0 0 var(--ac)}
 .row img{width:88px;height:50px;object-fit:cover;border-radius:6px;background:#1a1c21;flex:none;pointer-events:none}
@@ -114,7 +114,8 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 .icb{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--fg);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
 #feed,#results{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:22px 16px}
 #feedHint{margin:-4px 0 14px}
-.vcard{display:flex;flex-direction:column;gap:9px;width:100%;padding:0;border:0;background:none;color:var(--fg);font:inherit;text-align:start;cursor:pointer}
+.vcard{display:flex;flex-direction:column;gap:9px;width:100%;padding:0;border:0;background:none;color:var(--fg);font:inherit;text-align:start;cursor:pointer;user-select:none;-webkit-user-select:none;min-height:240px;box-sizing:border-box}
+.vcard *{pointer-events:none}
 .vcard:active .thumb{transform:scale(.985)}
 .thumb{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--card);transition:transform .1s}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -127,7 +128,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 #foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--bd);display:flex;flex-direction:column;gap:14px;font-size:13px;color:var(--mut)}
 #foot summary{font-weight:600;cursor:pointer}
 #foot details p{margin:8px 0 0;font-size:13px;line-height:1.7}
-#histClear{align-self:flex-start;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:9px 14px;font:inherit;font-size:13px;cursor:pointer}
+#histClear{align-self:flex-start;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:99px 14px;font:inherit;font-size:13px;cursor:pointer}
 .loader-sentinel{grid-column:1/-1;text-align:center;padding:16px;font-size:14px;color:var(--mut)}
 @media(min-width:700px){#feed,#results{gap:26px 18px}}
 @media (prefers-reduced-motion: reduce){#flash{transition:none}}
@@ -137,17 +138,17 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 <main id="setup">
   <header id="top">
     <div id="brand"><div class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></div><span>Malek Tube</span></div>
-    <button id="lang" type="button">العربية</button>
+    <button id="lang" type="button">English</button>
   </header>
   <section id="searchArea" aria-label="Search">
     <div id="searchLine">
-      <input id="searchInput" dir="auto" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Search…" aria-label="Search">
+      <input id="searchInput" dir="auto" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="ابحث..." aria-label="Search">
       <button id="searchBtn" type="button" aria-label="Search" data-a="searchBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     </div>
     <div id="suggestions" role="listbox" aria-label="Suggestions" hidden></div>
   </section>
   <div id="linkRow">
-    <input id="url" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Paste a video or playlist link" aria-label="Link">
+    <input id="url" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="الصق رابط فيديو أو قائمة تشغيل" aria-label="Link">
     <button id="paste" type="button" aria-label="Paste" data-a="paste"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/></svg></button>
     <button id="go" type="button" aria-label="Play" data-a="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
   </div>
@@ -155,18 +156,19 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   <div id="searchStatus" class="note" role="status" aria-live="polite"></div>
   <nav id="chips" aria-label="Topics"></nav>
   <section id="feedWrap">
-    <div class="sec"><h2 id="feedTitle">For you</h2><button id="feedRefresh" class="icb" type="button" aria-label="Refresh" data-a="refresh"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg></button></div>
+    <div class="sec"><h2 id="feedTitle">لأجلك</h2><button id="feedRefresh" class="icb" type="button" aria-label="Refresh" data-a="refresh"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg></button></div>
     <p id="feedHint" class="note" hidden></p>
     <div id="feed" aria-live="polite"></div>
+    <div id="feedLoader" class="loader-sentinel" hidden>جاري تحميل المزيد...</div>
   </section>
   <section id="resultsWrap" hidden>
-    <div class="sec"><h2 id="resTitle">Results</h2><button id="resClose" class="icb" type="button" aria-label="Close" data-a="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="sec"><h2 id="resTitle">النتائج</h2><button id="resClose" class="icb" type="button" aria-label="Close" data-a="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div id="results" aria-label="Results"></div>
-    <div id="resultsLoader" class="loader-sentinel" hidden>Loading more...</div>
+    <div id="resultsLoader" class="loader-sentinel" hidden>جاري تحميل المزيد...</div>
   </section>
   <footer id="foot">
-    <button id="histClear" type="button" data-t="clearHist">Clear my history</button>
-    <details><summary data-t="install">Install as an app</summary><p data-t="tip">To open it like an app: on iPhone, tap Share in Safari, then “Add to Home Screen”. On Android, tap ⋮ then “Add to Home screen”.</p></details>
+    <button id="histClear" type="button" data-t="clearHist">مسح سجلّي</button>
+    <details><summary data-t="install">تثبيته كتطبيق</summary><p data-t="tip">لتفتحها كأنها تطبيق بشاشة كاملة: على الآيفون من Safari اضغط المشاركة ثم «إضافة إلى الشاشة الرئيسية». وعلى أندرويد اضغط ⋮ ثم «إضافة إلى الشاشة الرئيسية».</p></details>
   </footer>
 </main>
 
@@ -184,23 +186,23 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   <button id="b-clean" aria-label="Hide buttons" data-a="clean"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button>
   <div id="bar"><div id="trk"><div id="tk"><div id="pf"></div></div></div><span id="tm">0:00</span></div>
   <div id="flash"></div>
-  <div id="audlbl" data-t="audlbl">Audio only mode</div>
+  <div id="audlbl" data-t="audlbl">وضع الصوت فقط</div>
   <div id="list">
-    <div id="lh"><span data-t="videos">Videos</span><button id="lclose" aria-label="Close" data-a="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div id="lh"><span data-t="videos">الفيديوهات</span><button id="lclose" aria-label="Close" data-a="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div id="listTabs" role="tablist" aria-label="Video lists">
-      <button id="tabPlaylist" class="list-tab on" type="button" role="tab" aria-selected="true" data-t="playlistTab">My list</button>
-      <button id="tabRecommendations" class="list-tab" type="button" role="tab" aria-selected="false" data-t="recommendTab">Recommended</button>
+      <button id="tabPlaylist" class="list-tab on" type="button" role="tab" aria-selected="true" data-t="playlistTab">قائمتي</button>
+      <button id="tabRecommendations" class="list-tab" type="button" role="tab" aria-selected="false" data-t="recommendTab">اقتراحات</button>
     </div>
     <div id="rows"></div>
   </div>
-  <div id="hint" data-t="hint">Swipe up for next • Double-tap left or right to skip</div>
+  <div id="hint" data-t="hint">اسحب لفوق للتالي • لمستين يمين أو يسار للتقديم والترجيع</div>
 </div>
 <video id="pipVideo" playsinline webkit-playsinline preload="metadata" aria-hidden="true"></video>
 
 <script>
 (function(){
   var $=function(i){return document.getElementById(i)};
-  var lang='en',L={
+  var lang='ar',L={
     en:{sub:'Paste a link to start, or search YouTube.',searchPh:'Search YouTube...',searchBtn:'Search',orLink:'Or paste a video / playlist link',searching:'Searching YouTube...',loadingSuggest:'Loading suggestions...',noResults:'No videos found.',searchFail:'Search is temporarily unavailable. Try again or paste a link.',paste:'Paste & play',go:'Start',ph:'Paste link here',
       tip:'To open it like an app: on iPhone, tap Share in Safari, then “Add to Home Screen”. On Android, tap ⋮ then “Add to Home screen”.',
       videos:'Videos',playlistTab:'My list',recommendTab:'Recommended',recWait:'Loading recommendations for this video…',recFail:'Could not load recommendations right now.',recEmpty:'No recommendations found for this video.',noCurrent:'Play a video first to see recommendations.',pip:'Picture in picture',pipPreparing:'Preparing picture-in-picture. Wait a moment, then tap again.',pipUnsupported:'Picture-in-picture is not supported by this browser.',pipUnavailable:'Picture-in-picture is unavailable for this video.',pipFailed:'Could not start picture-in-picture. Try again.',audlbl:'Audio only mode',hint:'Swipe up for next • Double-tap left or right to skip',
@@ -424,6 +426,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     }).catch(function(){if(seq===suggestSeq)hideSuggestions()});
   }
 
+  // --- Search with Infinite Scroll Support ---
   var currentSearchQuery = '', searchPage = 1, isSearchLoading = false, hasMoreSearchResults = true;
 
   function searchVideos(value, isNextPage){
@@ -463,7 +466,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
       var list=videos.map(normItem),frag=document.createDocumentFragment();
       list.forEach(function(it,i){frag.appendChild(makeCard(it,i,list))});
       $('results').appendChild(frag);
-      if(videos.length < 15) { hasMoreSearchResults = false; $('resultsLoader').hidden = true; }
+      if(videos.length < 12) { hasMoreSearchResults = false; $('resultsLoader').hidden = true; }
     }).catch(function(){
       if(seq!==searchSeq)return;
       isSearchLoading = false;
@@ -472,30 +475,11 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     });
   }
 
-  window.addEventListener('scroll', function(){
-    if(!$('resultsWrap').hidden && hasMoreSearchResults && !isSearchLoading){
-      var threshold = 400;
-      if((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - threshold)){
-        searchVideos(currentSearchQuery, true);
-      }
-    }
-  },{passive:true});
-
-  $('searchInput').addEventListener('input',function(){
-    var value=this.value.trim();clearTimeout(suggestTimer);clearTimeout(searchTimer);
-    if(value.length<2){hideSuggestions();return}
-    suggestTimer=setTimeout(function(){loadSuggestions(value)},230);
-  });
-  $('searchInput').addEventListener('keydown',function(e){
-    if(e.key==='Enter'){e.preventDefault();searchVideos(this.value)}
-    else if(e.key==='Escape')hideSuggestions();
-  });
-  $('searchBtn').addEventListener('click',function(){searchVideos($('searchInput').value)});
-  document.addEventListener('click',function(e){if(!$('searchArea').contains(e.target))hideSuggestions()});
-
+  // ---------- Home: cards, history and recommendations ----------
   var TOPICS={en:[['Quran','Quran recitation'],['Music','Music'],['Gaming','Gaming'],['News','News'],['Sports','Sports'],['Cooking','Cooking'],['Tech','Tech'],['Comedy','Comedy']],
     ar:[['قرآن','قرآن كريم'],['أغاني','أغاني'],['ألعاب','ألعاب'],['أخبار','أخبار'],['رياضة','رياضة'],['طبخ','طبخ'],['تقنية','تقنية'],['كوميديا','كوميديا']]};
   var FEED_N=36,FEED_TTL=3*3600*1000,feedSeq=0,lastFeed=null,histTimer=0,activeChip='home';
+  var isFeedLoading = false;
   var STOP={};('official video videos channel subscribe youtube the and for with from this that you your new full episode part live الفيديو فيديو القناة').split(' ').forEach(function(w){STOP[w]=1});
   var WSPLIT;try{WSPLIT=new RegExp('[^\\p{L}\\p{N}]+','u')}catch(e){WSPLIT=/[^a-z0-9\u0600-\u06ff]+/}
   function normItem(v){return {id:v.videoId,t:v.title||'',a:v.author||'',v:+v.viewCount||0,l:+v.lengthSeconds||0,p:v.publishedText||''}}
@@ -566,15 +550,19 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     });
   }
 
-  function planFor(h, forceRandom){
-    if(!h.length || forceRandom){
+  // Smart Personalized Plan Generator
+  function planFor(h, isRefresh){
+    if(!h.length){
       var shuffledTopics = TOPICS[lang].slice().sort(function(){return 0.5 - Math.random()});
       return shuffledTopics.slice(0,4).map(function(t){return {slots:Math.round(FEED_N/4),fetch:function(){return searchQ(t[1])}}});
     }
     var cl=cluster(h).sort(function(a,b){return b.w-a.w}).slice(0,4),sum=cl.reduce(function(x,c){return x+c.w},0)||1,plan=[];
     cl.forEach(function(c,i){
-      var slots=Math.max(5,Math.round(FEED_N*c.w/sum)),seeds=[c.m[Math.floor(Math.random()*c.m.length)]];
-      seeds.forEach(function(m){plan.push({slots:Math.ceil(slots/seeds.length),fetch:function(){return relatedOf(m.i)}})});
+      var slots=Math.max(5,Math.round(FEED_N*c.w/sum));
+      // Select random items from user's history cluster to ensure variation on refresh
+      var randomIdx = isRefresh ? Math.floor(Math.random()*c.m.length) : 0;
+      var seed = c.m[randomIdx] || c.m[0];
+      plan.push({slots:slots,fetch:function(){return relatedOf(seed.i)}});
     });
     return plan;
   }
@@ -585,7 +573,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     var cols=plan.map(function(p,i){
       var arr=(lists[i]||[]).filter(function(x){return !watched[x.id]});
       arr.forEach(function(x,r){x.s=1/(r+2)+.25*Math.min(1,(authors[x.a]||0)/3)});
-      arr.sort(function(a,b){return (b.s - a.s) + (Math.random() * 0.2 - 0.1);});
+      arr.sort(function(a,b){return (b.s - a.s) + (Math.random() * 0.15 - 0.075);});
       return {arr:arr,left:p.slots,total:p.slots,pos:0};
     });
     var out=[],seen={},perAuthor={},guard=0;
@@ -603,9 +591,13 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 
   function readFeed(){try{var f=JSON.parse(ls('feed')||'null');return f&&Array.isArray(f.items)?f:null}catch(e){return null}}
   function feedSig(h){return h.slice(0,10).map(function(e){return e.i}).join(',')+'|'+lang}
-  function drawFeed(items){
-    lastFeed=items;var f=$('feed'),frag=document.createDocumentFragment();f.textContent='';
-    items.forEach(function(it,i){frag.appendChild(makeCard(it,i,items))});f.appendChild(frag);
+  function drawFeed(items, append){
+    var f=$('feed');
+    if(!append){ lastFeed=items; f.textContent=''; }
+    else { lastFeed = (lastFeed || []).concat(items); }
+    var frag=document.createDocumentFragment();
+    items.forEach(function(it,i){frag.appendChild(makeCard(it, (append ? lastFeed.length - items.length + i : i), lastFeed))});
+    f.appendChild(frag);
     var has=getHist().length>0;$('feedTitle').textContent=tr(has?'forYou':'popular');$('feedHint').textContent=tr('feedHint');$('feedHint').hidden=has;
   }
   function drawSkeleton(){
@@ -617,17 +609,49 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     var b=document.createElement('button');b.type='button';b.className='chip';b.style.marginTop='10px';b.textContent=tr('retry');b.onclick=function(){renderHome(true)};
     var w=document.createElement('div');w.appendChild(p);w.appendChild(b);f.appendChild(w);
   }
-  function renderHome(force){
+
+  function renderHome(isRefresh, append){
+    if(isFeedLoading) return;
+    isFeedLoading = true;
     var h=getHist(),sig=feedSig(h),c=readFeed(),seq=++feedSeq,have=!!(c&&c.items.length);
-    if(have&&!force){drawFeed(c.items);if(c.sig===sig&&Date.now()-c.ts<FEED_TTL)return}else drawSkeleton();
-    var plan=planFor(h, force);
+    if(have && !isRefresh && !append){
+      drawFeed(c.items, false);
+      isFeedLoading = false;
+      if(c.sig===sig&&Date.now()-c.ts<FEED_TTL)return;
+    } else if(!append) {
+      drawSkeleton();
+    }
+
+    if(append) $('feedLoader').hidden = false;
+
+    var plan=planFor(h, isRefresh || append);
     Promise.all(plan.map(function(p){return p.fetch().catch(function(){return []})})).then(function(lists){
       if(seq!==feedSeq)return;
+      isFeedLoading = false;
+      $('feedLoader').hidden = true;
       var items=mergeFeed(plan,lists,h);
-      if(items.length){try{ls('feed',JSON.stringify({ts:Date.now(),sig:sig,items:items}))}catch(e){}drawFeed(items)}
-      else if(!have)feedMsg(tr('feedFail'));
-    }).catch(function(){if(seq===feedSeq&&!have)feedMsg(tr('feedFail'))});
+      if(items.length){
+        if(!append){ try{ls('feed',JSON.stringify({ts:Date.now(),sig:sig,items:items}))}catch(e){} }
+        drawFeed(items, append);
+      } else if(!have && !append) feedMsg(tr('feedFail'));
+    }).catch(function(){
+      if(seq===feedSeq){ isFeedLoading = false; $('feedLoader').hidden = true; if(!have && !append) feedMsg(tr('feedFail')); }
+    });
   }
+
+  // Combined Infinite Scroll Listener for Home Feed and Search Results
+  window.addEventListener('scroll', function(){
+    var threshold = 400;
+    var nearBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - threshold);
+    if(nearBottom){
+      if(!$('resultsWrap').hidden && hasMoreSearchResults && !isSearchLoading){
+        searchVideos(currentSearchQuery, true);
+      } else if($('resultsWrap').hidden && !isFeedLoading){
+        renderHome(false, true);
+      }
+    }
+  },{passive:true});
+
   function showResults(on){
     $('resultsWrap').hidden=!on;$('feedWrap').hidden=on;
     if(!on){$('searchStatus').textContent='';$('results').textContent='';activeChip='home'}
@@ -643,15 +667,15 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     var on=$('resultsWrap').hidden?'home':activeChip;
     $('chips').querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c.dataset.k===on)});
   }
-  function applyHomeLang(){renderChips();if(lastFeed)drawFeed(lastFeed);else $('feedTitle').textContent=tr('forYou')}
+  function applyHomeLang(){renderChips();if(lastFeed)drawFeed(lastFeed, false);else $('feedTitle').textContent=tr('forYou')}
   $('chips').addEventListener('click',function(e){
     var b=e.target.closest('.chip');if(!b)return;
     if(b.dataset.k==='home'){$('searchInput').value='';showResults(false)}
     else{activeChip=b.dataset.k;$('searchInput').value=b.dataset.q;searchVideos(b.dataset.q)}
   });
-  $('feedRefresh').onclick=function(){renderHome(true)};
+  $('feedRefresh').onclick=function(){renderHome(true, false)};
   $('resClose').onclick=function(){$('searchInput').value='';showResults(false)};
-  $('histClear').onclick=function(){if(confirm(tr('clearAsk'))){ls('hist','[]');ls('feed','');renderHome(true)}};
+  $('histClear').onclick=function(){if(confirm(tr('clearAsk'))){ls('hist','[]');ls('feed','');renderHome(true, false)}};
   $('searchInput').addEventListener('input',function(){if(!this.value.trim())showResults(false)});
 
   function pump(){while(active<3&&q.length){var id=q.shift();active++;fetchTitle(id,function(){active--;pump()})}}
@@ -752,7 +776,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   }
   function stop(){
     if(pipActive)stopPip(false);
-    yt.src='about:blank';stage.hidden=true;$('setup').hidden=false;closeList();renderHome(false);fs(false);stage.classList.remove('land');try{screen.orientation.unlock()}catch(x){}
+    yt.src='about:blank';stage.hidden=true;$('setup').hidden=false;closeList();renderHome(false, false);fs(false);stage.classList.remove('land');try{screen.orientation.unlock()}catch(x){}
     window.scrollTo(0, savedScrollY);
   }
   function go(dir){
@@ -809,7 +833,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     if(!navigator.clipboard||!navigator.clipboard.readText){$('err').textContent=tr('noclip');return}
     navigator.clipboard.readText().then(function(t){$('url').value=t;run(t)},function(){$('err').textContent=tr('clipdeny')});
   };
-  renderChips();renderHome(false);
+  renderChips();renderHome(false, false);
   var qm=location.search.match(/[?&]u=(.*)$/);
   if(qm){var qu=qm[1];try{qu=decodeURIComponent(qu)}catch(e){}$('url').value=qu;run(qu)}
   if(ls('fill')==='0'){fill=false;slide.className='fit'}
