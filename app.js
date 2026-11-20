@@ -302,7 +302,7 @@
       lastAutoAdvanceId='';
       if(customQueueActive){
         var queueIndex=customQueueIds.indexOf(id);
-        if(queueIndex>=0){customQueueIndex=queueIndex;cur=queueIndex;}
+        if(queueIndex>=0){customQueueIndex=queueIndex;cur=queueIndex;if($('list').classList.contains('open')&&currentTab==='playlist')setCur(queueIndex)}
       }
       $('pf').style.transform='scaleX(0)';$('tmCurrent').textContent='0:00';$('tmDuration').textContent='0:00';hideSeekPreview();
       clearTimeout(histTimer);(function(hid){histTimer=setTimeout(function(){recordHistory(hid)},12000)})(id);
@@ -880,11 +880,11 @@
       }
       if(!customQueueActive&&typeof inf.playlistIndex==='number'&&inf.playlistIndex!==cur)setCur(inf.playlistIndex);
     }
-    if(s===0&&playerHasStarted&&customQueueActive&&customQueueIds.length>1&&currentVideoId&&dur>0&&tcur>=dur-2&&lastAutoAdvanceId!==currentVideoId){
+    if(s===0&&playerHasStarted&&customQueueActive&&customQueueIds.length>1&&currentVideoId&&!requestedStartId&&lastAutoAdvanceId!==currentVideoId){
       var endedId=currentVideoId,endedToken=playerLoadToken;
       lastAutoAdvanceId=endedId;clearTimeout(customAdvanceTimer);
       customAdvanceTimer=setTimeout(function(){
-        if(endedToken===playerLoadToken&&currentVideoId===endedId&&!playing)go(1);
+        if(endedToken===playerLoadToken&&currentVideoId===endedId&&!playing&&!requestedStartId)go(1);
       },320);
     }
   });
@@ -1145,4 +1145,4 @@
   });
 })();
 
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=9',{updateViaCache:'none'}).catch(function(){})
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=10',{updateViaCache:'none'}).catch(function(){})
