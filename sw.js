@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'malek-tube-shell-v3';
+const CACHE_NAME = 'malek-tube-shell-v4';
 const SHELL_FILES = ['./index.html', './app.js', './manifest.webmanifest', './icon.svg'];
 const SHELL_INDEX = new URL('./index.html', self.location.href).href;
 
@@ -29,6 +29,22 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+
+  const appScriptPath = new URL('./app.js', self.location.href).pathname;
+  if (url.pathname === appScriptPath) {
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME);
+      const cachedUrl = new URL('./app.js', self.location.href).href;
+      try {
+        const fresh = await fetch(request, { cache: 'no-store' });
+        if (fresh.ok) await cache.put(cachedUrl, fresh.clone());
+        return fresh;
+      } catch {
+        return (await cache.match(cachedUrl)) || Response.error();
+      }
+    })());
+    return;
+  }
 
   if (request.mode === 'navigate') {
     event.respondWith((async () => {
