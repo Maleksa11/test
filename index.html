@@ -62,6 +62,9 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 #flash{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%) scale(.8);width:84px;height:84px;border-radius:50%;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#fff;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 #flash svg{width:38px;height:38px;stroke:#fff;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 #flash.show{opacity:.9;transform:translate(-50%,-50%) scale(1)}
+.player-status{position:absolute;z-index:4;left:50%;top:calc(50% + 54px);transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:9px;max-width:calc(100% - 40px);padding:8px 13px;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(8,9,13,.76);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:12px;font-weight:650;text-align:center;pointer-events:none;white-space:nowrap}
+.player-status[hidden]{display:none}
+.player-status .load-spinner{width:15px;height:15px;border-color:rgba(255,255,255,.3);border-top-color:#ff6684}
 #hint{position:absolute;z-index:3;left:50%;transform:translateX(-50%);max-width:86%;bottom:calc(env(safe-area-inset-bottom,0px) + 122px);text-align:center;color:#fff;font-size:12px;padding:7px 12px;border-radius:12px;background:rgba(0,0,0,.48);pointer-events:none;transition:opacity .6s}
 #listTabs{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid #2a2d35}
 #b-pip:disabled{opacity:.35;cursor:wait}
@@ -247,6 +250,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   </div>
   <button id="b-clean" aria-label="Hide buttons" data-a="clean"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button>
   <div id="flash"></div>
+  <div id="playerStatus" class="player-status" role="status" aria-live="polite" hidden><span class="load-spinner" aria-hidden="true"></span><span id="playerStatusText">Loading video…</span></div>
   <div id="audlbl" data-t="audlbl">Audio only mode</div>
   <div id="list">
     <div id="lh"><span data-t="videos">Videos</span><button id="lclose" aria-label="Close" data-a="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
@@ -262,6 +266,6 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 
 
 
-<script src="./app.js" defer></script>
+<script src="./app.js?v=4" defer></script>
 </body>
 </html>
