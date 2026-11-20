@@ -561,7 +561,7 @@
   function drawFeed(items){
     lastFeed=items.slice();browseItems=lastFeed;feedSeen=Object.create(null);
     var f=$('feed'),frag=document.createDocumentFragment();f.textContent='';
-    items.forEach(function(it,i){feedSeen[it.id]=1;frag.appendChild(makeCard(it,i,items))});f.appendChild(frag);
+    items.forEach(function(it,i){feedSeen[it.id]=1;frag.appendChild(makeCard(it,i,lastFeed))});f.appendChild(frag);
     var has=getHist().length>0;$('feedTitle').textContent=tr(has?'forYou':'popular');$('feedHint').textContent=tr('feedHint');$('feedHint').hidden=has;
     drawHistory();
   }
