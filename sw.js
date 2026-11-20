@@ -2,6 +2,7 @@
 
 const CACHE_NAME = 'malek-tube-shell-v1';
 const SHELL_FILES = ['./index.html', './manifest.webmanifest', './icon.svg'];
+const SHELL_INDEX = new URL('./index.html', self.location.href).href;
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -15,7 +16,8 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys.filter((key) => key.startsWith('malek-tube-') && key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
       ))
       .then(() => self.clients.claim())
   );
@@ -29,15 +31,18 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request).then((response) => {
+    event.respondWith((async () => {
+      try {
+        const response = await fetch(request);
         if (response.ok) {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy));
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put(SHELL_INDEX, response.clone());
         }
         return response;
-      }).catch(() => caches.match('./index.html'))
-    );
+      } catch {
+        return (await caches.match(SHELL_INDEX)) || Response.error();
+      }
+    })());
     return;
   }
 
