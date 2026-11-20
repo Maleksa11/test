@@ -23,3 +23,13 @@ Serve the repository over HTTPS (for example, GitHub Pages). The manifest and se
 - No API keys, passwords, or private credentials are embedded in this static frontend.
 - The page uses a restrictive Content Security Policy, a no-referrer policy, strict YouTube player message-origin checks, and text-only insertion for external titles and search suggestions.
 - This is a client-side hardening pass, not a formal security audit. Review hosting response headers, dependency/supply-chain changes, and any future backend before collecting accounts or private data.
+
+
+## Player update (November 2026)
+
+- Search and For You show an animated loading indicator while additional result pages are being fetched.
+- Video cards pass their own source list and video ID to the player. The YouTube embed URL uses the selected video as the first video and lists only subsequent queue items, matching YouTube's documented embed semantics. If the iframe reports a different initial video, the app corrects the queue with the documented zero-based `loadPlaylist` API.
+- Tapping the video picture no longer pauses playback. The central play/pause button is the playback toggle; double-tapping the left or right side still seeks ten seconds.
+- The timeline has a drag/hover preview when the metadata endpoint returns YouTube storyboard sheets. Some videos or public API instances may not provide usable storyboard data, so preview availability is not guaranteed for every video.
+- The download shortcut opens the official YouTube watch page. It does not extract or save YouTube media files; use YouTube's own Download option when it is offered, or download your own uploaded videos through YouTube Studio.
+- Picture-in-picture is best-effort and browser-dependent. The in-player PiP button is available where the browser supports it; an attempt is also made when the page is backgrounded. A web page cannot force PiP on every phone/browser, and background PiP may require browser permission or a native app wrapper.
