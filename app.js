@@ -237,6 +237,7 @@
       recommendedVideos=[];recommendedFor='';
       $('b-pip').disabled=true;
       if(pipActive&&pipOwnerId!==id)stopPip(true);
+      if(pipVideo){try{pipVideo.autoPictureInPicture=true}catch(e){}}
       loadVideoInfo(id).catch(function(){});
       if($('list').classList.contains('open')&&currentTab==='recommendations')loadRecommendations();
     }
@@ -667,6 +668,7 @@
     var d;try{d=JSON.parse(e.data)}catch(x){return}
     var s=d.event==='onStateChange'?d.info:(d.info&&d.info.playerState);
     if(s===1){playing=true;cmd('unloadModule',['captions']);cmd('unloadModule',['cc'])}else if(s===2)playing=false;
+    updatePlayButton();
     if(s===1)resumePendingVideo();
     var inf=d.info;
     if(inf&&typeof inf==='object'){
@@ -878,6 +880,7 @@
     var listItems=playlistIds.length?playlistIds:ids,chosenId=r.dataset.id,index=listItems.indexOf(chosenId);
     if(index<0)return;
     preserveSavedPlaylist=false;ids=listItems.slice();cur=index;
+    requestedStartId=chosenId;requestedStartQueue=listItems.slice(index);startCorrectionSent=false;
     if(originalPlaylistId)cmd('loadPlaylist',[originalPlaylistId,index,0]);
     else if(listItems.length>1)cmd('loadPlaylist',[listItems,index,0]);
     else cmd('loadVideoById',[chosenId,0]);
