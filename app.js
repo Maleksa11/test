@@ -749,10 +749,12 @@
     if(e.source!==yt.contentWindow||e.origin!=='https://www.youtube.com')return;
     var d;try{d=JSON.parse(e.data)}catch(x){return}
     if(d.event==='onAutoplayBlocked'){
-      playerWantsPlay=false;playing=false;setPlayerStatus('blocked');updatePlayButton();return;
+      clearTimeout(playerStartTimer);playerWantsPlay=false;playing=false;
+      setPlayerStatus('blocked');updatePlayButton();return;
     }
     if(d.event==='onError'){
-      playerWantsPlay=false;playing=false;setPlayerStatus('error');updatePlayButton();return;
+      clearTimeout(playerStartTimer);playerWantsPlay=false;playing=false;
+      setPlayerStatus('error');updatePlayButton();return;
     }
     var s=d.event==='onStateChange'?d.info:(d.info&&d.info.playerState);
     if(!pipActive){
