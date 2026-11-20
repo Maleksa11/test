@@ -53,7 +53,7 @@
   var requestedStartId='',requestedStartQueue=[],startCorrectionSent=false;
   var playerLoadToken=0,playerStartTimer=0,playerHasStarted=false,playerWantsPlay=false;
   var dur=0,tcur=0,drag=false,lastSec=-1,lastTap=0,progressPollTimer=0,controlsHideTimer=0;
-  var progressClockRunning=false,lastClockAt=0,lastRemoteTimeAt=0;
+  var progressClockRunning=false,lastClockAt=0,lastRemoteTimeAt=0,progressPollToken=0;
   function fmt(s){s=Math.max(0,Math.floor(s));var m=Math.floor(s/60),h=Math.floor(m/60),r=('0'+s%60).slice(-2);return h?h+':'+('0'+m%60).slice(-2)+':'+r:m+':'+r}
   function paint(t){
     if(!Number.isFinite(dur)||dur<=0)return;
@@ -71,7 +71,8 @@
     if(playerHasStarted)cmd('getCurrentTime');
   }
   function startProgressPolling(token){
-    clearInterval(progressPollTimer);lastClockAt=Date.now();
+    if(progressPollTimer&&progressPollToken===token)return;
+    clearInterval(progressPollTimer);progressPollToken=token;lastClockAt=Date.now();
     progressPollTimer=setInterval(function(){
       if(token!==playerLoadToken||stage.hidden||pipActive||!playerHasStarted)return;
       var now=Date.now(),elapsed=Math.min(1.5,Math.max(0,(now-lastClockAt)/1000));
@@ -824,9 +825,10 @@
     var s=d.event==='onStateChange'?d.info:(d.info&&d.info.playerState);
     if(!pipActive){
       if(s===1){
+        var clockWasRunning=progressClockRunning;
         playerHasStarted=true;playerWantsPlay=false;clearTimeout(playerStartTimer);setPlayerStatus('');
-        playing=true;progressClockRunning=true;lastClockAt=Date.now();
-        if(!lastRemoteTimeAt)lastRemoteTimeAt=lastClockAt;
+        playing=true;progressClockRunning=true;
+        if(!clockWasRunning){lastClockAt=Date.now();lastRemoteTimeAt=lastClockAt}
         cmd('unloadModule',['captions']);cmd('unloadModule',['cc']);
         startProgressPolling(playerLoadToken);revealControls();
       }else if(s===2||s===3){
