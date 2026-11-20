@@ -122,7 +122,7 @@
     if(id!==currentVideoId||currentTab!=='recommendations')return;
     var rows=$('rows');rows.textContent='';
     var items=Array.isArray(data&&data.recommendedVideos)?data.recommendedVideos:[];
-    items=items.filter(function(v){return v&&v.videoId&&v.videoId!==id}).slice(0,35);
+    items=items.filter(function(v){return v&&validVideoId(v.videoId)&&v.videoId!==id}).slice(0,35);
     recommendedVideos=items;recommendedFor=id;
     if(!items.length){var p=document.createElement('p');p.style.cssText='padding:20px;color:#8a8f9a';p.textContent=tr('recEmpty');rows.appendChild(p);return}
     var frag=document.createDocumentFragment();
@@ -171,7 +171,7 @@
     loadVideoInfo(id).then(function(data){if(seq===recommendationSeq&&currentVideoId===id&&currentTab==='recommendations')renderRecommendations(id,data)}).catch(function(){if(seq===recommendationSeq&&currentTab==='recommendations')showListMessage(tr('recFail'))});
   }
   function setCurrentVideo(id,videoTitle){
-    if(!id)return;
+    if(!validVideoId(id))return;
     var changed=currentVideoId!==id;
     if(changed&&currentVideoId)recordHistory(currentVideoId);
     currentVideoId=id;
@@ -249,7 +249,7 @@
     var language=lang==='ar'?'ar':'en';
     apiGet('/api/v1/search?q='+encodeURIComponent(currentSearchQuery)+'&type=video&page='+page+'&region=JO&hl='+language).then(function(data){
       if(seq!==searchSeq)return;
-      var videos=Array.isArray(data)?data.filter(function(v){return v&&v.type==='video'&&v.videoId}):[];
+      var videos=Array.isArray(data)?data.filter(function(v){return v&&v.type==='video'&&validVideoId(v.videoId)}):[];
       var added=[],known=Object.create(null);searchItems.forEach(function(x){known[x.id]=1});
       videos.forEach(function(v){var it=normItem(v);if(!known[it.id]){known[it.id]=1;added.push(it)}});
       if(!append){searchItems=[];added.forEach(function(x){searchItems.push(x)})}
@@ -297,6 +297,7 @@
     historySaveAt=0,historyEpoch=0,pendingResumeId='',pendingResumeAt=0;
   var STOP={};('official video videos channel subscribe youtube the and for with from this that you your new full episode part live الفيديو فيديو القناة').split(' ').forEach(function(w){STOP[w]=1});
   var WSPLIT;try{WSPLIT=new RegExp('[^\\p{L}\\p{N}]+','u')}catch(e){WSPLIT=/[^a-z0-9\u0600-\u06ff]+/}
+  function validVideoId(id){return typeof id==='string'&&/^[A-Za-z0-9_-]{11}$/.test(id)}
   function normItem(v){return {id:v.videoId,t:v.title||'',a:v.author||'',v:+v.viewCount||0,l:+v.lengthSeconds||0,p:v.publishedText||''}}
   function durText(s){s=+s||0;if(!s)return '';var h=Math.floor(s/3600),m=Math.floor(s%3600/60),r=s%60;return (h?h+':'+('0'+m).slice(-2):m)+':'+('0'+r).slice(-2)}
   function viewsText(n){n=+n;if(!n)return '';var x;try{x=new Intl.NumberFormat(lang==='ar'?'ar':'en',{notation:'compact',maximumFractionDigits:1}).format(n)}catch(e){x=n.toLocaleString()}return x+' '+tr('views')}
@@ -404,7 +405,7 @@
   }
   function relatedOf(id){
     var tail='hl='+(lang==='ar'?'ar':'en')+'&region=JO',base='/api/v1/videos/'+encodeURIComponent(id);
-    function pick(d){var a=d&&d.recommendedVideos;return Array.isArray(a)?a.filter(function(v){return v&&v.videoId&&v.title}).map(normItem):[]}
+    function pick(d){var a=d&&d.recommendedVideos;return Array.isArray(a)?a.filter(function(v){return v&&validVideoId(v.videoId)&&v.title}).map(normItem):[]}
     if(videoInfoCache[id]){var c=pick(videoInfoCache[id]);if(c.length)return Promise.resolve(c)}
     function full(){return apiGet(base+'?'+tail).then(pick)}
     return apiGet(base+'?fields=recommendedVideos(videoId,title,author,lengthSeconds,viewCount)&'+tail).then(pick).then(function(a){return a.length?a:full()}).catch(full);
@@ -412,7 +413,7 @@
   function searchQ(q,page){
     page=Math.max(1,+page||1);
     return apiGet('/api/v1/search?q='+encodeURIComponent(q)+'&type=video&page='+page+'&region=JO&hl='+(lang==='ar'?'ar':'en')).then(function(d){
-      return (Array.isArray(d)?d:[]).filter(function(v){return v&&v.type==='video'&&v.videoId}).map(normItem);
+      return (Array.isArray(d)?d:[]).filter(function(v){return v&&v.type==='video'&&validVideoId(v.videoId)}).map(normItem);
     });
   }
   function planFor(h,rotation){
@@ -564,8 +565,9 @@
     rows.querySelectorAll('.row').forEach(function(r){io.observe(r)});
   }
   function setIds(a){
-    ids=a.slice();
-    if(!preserveSavedPlaylist)playlistIds=a.slice();
+    var safe=Array.isArray(a)?a.filter(validVideoId):[];
+    ids=safe.slice();
+    if(!preserveSavedPlaylist)playlistIds=safe.slice();
     if($('list').classList.contains('open')&&currentTab==='playlist')buildList();
   }
   function setCur(i){cur=i;var rs=$('rows'),o=rs.querySelector('.cur');if(o)o.classList.remove('cur');var n=rs.querySelector('[data-i="'+i+'"]');if(n&&currentTab==='playlist')n.classList.add('cur')}
@@ -631,6 +633,9 @@
   }
   function fs(on){try{var d=document,e=d.documentElement;if(on){if(!d.fullscreenElement&&e.requestFullscreen){var r=e.requestFullscreen({navigationUI:'hide'});if(r&&r.catch)r.catch(function(){});return r}}else if(d.fullscreenElement&&d.exitFullscreen)d.exitFullscreen()}catch(x){}}
   function start(p,keepSavedPlaylist){
+    if(!p||(!p.list&&(!Array.isArray(p.vids)||!p.vids.some(validVideoId))))return;
+    if(!p.list)p.vids=p.vids.filter(validVideoId);
+    if(!p.list&&!p.vids.length)return;
     if(pendingResumeId&&(!p.vids||p.vids[0]!==pendingResumeId)){pendingResumeId='';pendingResumeAt=0}
     if(currentVideoId)recordHistory(currentVideoId);
     clearTimeout(histTimer);dur=0;tcur=0;lastSec=-1;historySaveAt=0;
