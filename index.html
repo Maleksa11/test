@@ -32,8 +32,7 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 #ui button,#playerActions button{width:42px;height:42px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(22,24,30,.76);color:#fff;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .12s,background .15s;pointer-events:auto;flex:none}
 #ui button:active,#playerActions button:active{transform:scale(.92)}
 #ui button.on,#playerActions button.on{background:linear-gradient(135deg,#ff4468,#ff7a45);border-color:transparent}
-#ui svg,#playerActions svg,#b-clean svg,#lh svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:block}
-#b-clean svg{width:18px;height:18px}#b-clean .sl{display:none}#stage.clean #b-clean .sl{display:block}
+#ui svg,#playerActions svg,#lh svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:block}
 #b-back{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translateX(-50%)}
 #b-back:active{transform:translateX(-50%) scale(.92)}
 #b-toggle{position:absolute;left:50%;top:50%;width:68px!important;height:68px!important;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.22);background:rgba(10,12,18,.42);border-radius:50%;box-shadow:0 8px 30px rgba(0,0,0,.24)}
@@ -53,8 +52,6 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 #seekPreview.no-thumb #seekThumb{display:none}
 #playerActions{display:flex;align-items:center;justify-content:center;gap:12px}
 #playerActions button{width:40px;height:40px}
-#b-clean{position:absolute;z-index:5;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;bottom:auto;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(18,18,22,.4);color:#fff;opacity:.72;padding:0;display:flex;align-items:center;justify-content:center}
-#stage.clean #ui,#stage.clean #controlsDock{display:none}
 #stage.aud #slide iframe{top:50%;left:50%;width:96px;height:54px;transform:translate(-50%,-50%);opacity:.6;border-radius:8px}
 #audlbl{display:none;position:absolute;z-index:1;left:0;right:0;top:calc(50% + 48px);text-align:center;color:#aaa;font-size:15px;pointer-events:none}
 #stage.aud #audlbl{display:block}
@@ -66,10 +63,9 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 .player-status .load-spinner{width:15px;height:15px;border-color:rgba(255,255,255,.3);border-top-color:#ff6684}
 #hint{position:absolute;z-index:3;left:50%;transform:translateX(-50%);max-width:86%;bottom:calc(env(safe-area-inset-bottom,0px) + 122px);text-align:center;color:#fff;font-size:12px;padding:7px 12px;border-radius:12px;background:rgba(0,0,0,.48);pointer-events:none;transition:opacity .6s}
 #listTabs{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid #2a2d35}
-#stage.clean #b-clean{opacity:.25}
-#ui,#controlsDock,#b-clean{transition:opacity .24s ease,visibility .24s ease}
-#stage.controls-hidden #ui,#stage.controls-hidden #controlsDock,#stage.controls-hidden #b-clean{opacity:0;visibility:hidden;pointer-events:none}
-#stage.controls-hidden #ui button,#stage.controls-hidden #controlsDock button,#stage.controls-hidden #b-clean{pointer-events:none}
+#ui,#controlsDock{transition:opacity .24s ease,visibility .24s ease}
+#stage.controls-hidden #ui,#stage.controls-hidden #controlsDock{opacity:0;visibility:hidden;pointer-events:none}
+#stage.controls-hidden #ui button,#stage.controls-hidden #controlsDock button{pointer-events:none}
 @media(max-width:420px){
  #controlsDock{left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom,0px) + 10px);padding:10px 10px 9px;border-radius:17px}
  #playerActions{gap:10px}
@@ -81,8 +77,6 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 .list-tab{flex:1;min-height:40px;border:1px solid #343741;border-radius:12px;background:#17191e;color:#c9cbd2;font:inherit;font-size:14px;font-weight:700}
 .list-tab.on{background:linear-gradient(135deg,#ff4468,#ff7a45);border-color:transparent;color:#fff}
 #pipVideo{position:fixed;left:0;top:0;width:320px;height:180px;opacity:.001;pointer-events:none;z-index:4;background:#000}
-#b-clean{position:absolute;z-index:4;right:17px;bottom:calc(env(safe-area-inset-bottom,0px) + 35px);width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(18,18,22,.35);color:#fff;opacity:.5;padding:0;display:flex;align-items:center;justify-content:center}
-#stage.clean #ui,#stage.clean #controlsDock{display:none}
 #list{position:absolute;inset:0;z-index:6;background:#0b0b0d;display:none;flex-direction:column;direction:rtl;color:#f1f2f5}
 #list.open{display:flex}
 #lh{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 12px;font-weight:700;font-size:17px;border-bottom:1px solid #2a2d35}
@@ -242,7 +236,6 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
       <button id="b-list" aria-label="List" data-a="list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
     </div>
   </div>
-  <button id="b-clean" aria-label="Hide buttons" data-a="clean"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button>
   <div id="flash"></div>
   <div id="playerStatus" class="player-status" role="status" aria-live="polite" hidden><span class="load-spinner" aria-hidden="true"></span><span id="playerStatusText">Loading video…</span></div>
   <div id="audlbl" data-t="audlbl">Audio only mode</div>
@@ -260,6 +253,6 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 
 
 
-<script src="./app.js?v=6" defer></script>
+<script src="./app.js?v=7" defer></script>
 </body>
 </html>
