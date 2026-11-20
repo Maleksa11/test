@@ -1100,4 +1100,4 @@
   });
 })();
 
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=7',{updateViaCache:'none'}).catch(function(){})
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=8',{updateViaCache:'none'}).catch(function(){})
