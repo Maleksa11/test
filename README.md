@@ -33,3 +33,12 @@ Serve the repository over HTTPS (for example, GitHub Pages). The manifest and se
 - The timeline has a drag/hover preview when the metadata endpoint returns YouTube storyboard sheets; where no sheet is available, the time bubble still appears. Some videos or public API instances may not provide usable storyboard data, so thumbnail preview availability is not guaranteed for every video.
 - The download shortcut opens the official YouTube watch page. It does not extract or save YouTube media files; use YouTube's own Download option when it is offered, or download your own uploaded videos through YouTube Studio.
 - Picture-in-picture is best-effort and browser-dependent. The in-player PiP button is available where the browser supports it; browser-triggered and page-background attempts are also made while playback is active. The PiP play/pause state and current position are synchronized when supported. A web page cannot force PiP on every phone/browser, and background PiP may require browser permission or a native app wrapper.
+
+
+## Playback startup recovery (November 20, 2026)
+
+- The page no longer calls the Fullscreen API before the YouTube iframe is loaded. The player is already laid out to fill the app viewport; avoiding an early fullscreen request preserves the original card-click interaction for media playback.
+- The iframe `onload` handler is installed before assigning its source. After load, the app retries the IFrame Player API listening handshake and `playVideo` command for a short bounded period.
+- If YouTube reports that autoplay was blocked, the app shows a visible message and leaves the central Play button available. Player errors show a separate message instead of leaving an unresponsive-looking screen.
+- The app script URL is versioned. The service worker shell cache was bumped and the app script/document use network-first requests, with a cached fallback for offline access. This prevents old cached JavaScript from silently replacing the deployed version during normal online use.
+- A browser may still block unmuted autoplay based on its own policy. In that case the user must tap the central Play control; the site cannot override browser autoplay restrictions.
