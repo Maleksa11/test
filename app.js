@@ -654,7 +654,7 @@
     var b='https://www.youtube.com/embed/';
     var ref='';try{if(/^https?:/.test(location.href))ref='&origin='+encodeURIComponent(location.origin)}catch(e){}
     q+=ref;
-    yt.src=p.list?b+'videoseries?list='+encodeURIComponent(p.list)+'&'+q:b+p.vids[0]+'?playlist='+encodeURIComponent(p.vids.join(','))+'&'+q;
+    yt.src=p.list?b+'videoseries?list='+encodeURIComponent(p.list)+'&'+q:b+p.vids[0]+'?playlist='+encodeURIComponent(p.vids.length>1?p.vids.slice(1).join(','):p.vids[0])+'&'+q;
     yt.onload=listen;
     if($('list').classList.contains('open'))buildList();
     $('hint').textContent=tr('hint');$('hint').style.opacity=1;
