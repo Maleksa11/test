@@ -28,11 +28,11 @@ Serve the repository over HTTPS (for example, GitHub Pages). The manifest and se
 ## Player update (November 2026)
 
 - Search and For You show an animated loading indicator while additional result pages are being fetched.
-- Video cards pass their own source list and video ID to the player. The YouTube embed URL uses the selected video as the first video and lists only subsequent queue items, matching YouTube's documented embed semantics. If the iframe reports a different initial video, the app corrects the queue with the documented zero-based `loadPlaylist` API.
+- Search, For You, and history selections load the clicked video ID directly as a single-video embed. The app manages the follow-up queue itself with explicit `loadVideoById` calls, so the clicked card, actual YouTube video, timeline, and watch history stay tied to the same confirmed video ID. Original YouTube playlist URLs continue to use YouTube's native playlist player.
+- The player list also loads the exact selected video ID; it no longer asks YouTube to infer the clicked position from a separate result queue.
 - Tapping the video picture no longer pauses playback. The central play/pause button is the playback toggle; double-tapping the left or right side still seeks ten seconds.
 - The timeline has a drag/hover preview when the metadata endpoint returns YouTube storyboard sheets; where no sheet is available, the time bubble still appears. Some videos or public API instances may not provide usable storyboard data, so thumbnail preview availability is not guaranteed for every video.
-- The download shortcut opens the official YouTube watch page. It does not extract or save YouTube media files; use YouTube's own Download option when it is offered, or download your own uploaded videos through YouTube Studio.
-- Picture-in-picture is best-effort and browser-dependent. The in-player PiP button is available where the browser supports it; browser-triggered and page-background attempts are also made while playback is active. The PiP play/pause state and current position are synchronized when supported. A web page cannot force PiP on every phone/browser, and background PiP may require browser permission or a native app wrapper.
+- Background and browser-triggered picture-in-picture remain best-effort and browser-dependent. There is no visible in-player PiP button. A web page cannot force PiP on every phone/browser, and background PiP may require browser permission or a native app wrapper.
 
 
 ## Playback startup recovery (November 20, 2026)
