@@ -276,15 +276,25 @@
     var owner=pipOwnerId,position=pipVideo.currentTime||tcur,shouldResume=pipWasPlaying||!pipVideo.paused;
     try{if(document.pictureInPictureElement===pipVideo&&document.exitPictureInPicture)document.exitPictureInPicture();else if(pipVideo.webkitSetPresentationMode&&pipVideo.webkitSupportsPresentationMode&&pipVideo.webkitSupportsPresentationMode('picture-in-picture'))pipVideo.webkitSetPresentationMode('inline')}catch(e){}
     pipActive=false;pipVideo.pause();
-    if(resumeMain&&owner&&owner===currentVideoId){
-      cmd('seekTo',[Math.max(0,position),true]);
-      if(shouldResume){cmd('playVideo');playing=true}else{cmd('pauseVideo');playing=false}
-      updatePlayButton();
+    if(owner&&owner===currentVideoId){
+      tcur=Math.max(0,position);saveHistoryProgress();if(!drag)paint(tcur);
+      if(resumeMain){
+        cmd('seekTo',[tcur,true]);
+        if(shouldResume){cmd('playVideo');playing=true}else{cmd('pauseVideo');playing=false}
+        updatePlayButton();
+      }
     }
     pipOwnerId='';pipWasPlaying=false;
   }
   pipVideo.addEventListener('loadedmetadata',function(){if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=false;pipSourceLoadingId=''}});
   pipVideo.addEventListener('error',function(){if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=true;pipSourceLoadingId=''}});
+  pipVideo.addEventListener('timeupdate',function(){
+    if(pipActive){
+      tcur=pipVideo.currentTime||tcur;
+      if(!drag)paint(tcur);
+      saveHistoryProgress();
+    }
+  });
   pipVideo.addEventListener('play',function(){
     if(pipActive){pipWasPlaying=true;playing=true;updatePlayButton()}
   });
@@ -299,7 +309,7 @@
     var owner=pipOwnerId,pos=pipVideo.currentTime||tcur,shouldResume=pipWasPlaying;
     pipActive=false;
     if(owner&&owner===currentVideoId){
-      cmd('seekTo',[Math.max(0,pos),true]);
+      tcur=Math.max(0,pos);saveHistoryProgress();cmd('seekTo',[tcur,true]);
       if(shouldResume){cmd('playVideo');playing=true}else{cmd('pauseVideo');playing=false}
       updatePlayButton();
     }
@@ -312,7 +322,7 @@
       cmd('pauseVideo');playing=pipWasPlaying;updatePlayButton();
     }else if(pipOwnerId&&pipOwnerId===currentVideoId){
       var pos=pipVideo.currentTime||tcur,shouldResume=pipWasPlaying;pipActive=false;
-      cmd('seekTo',[Math.max(0,pos),true]);
+      tcur=Math.max(0,pos);saveHistoryProgress();cmd('seekTo',[tcur,true]);
       if(shouldResume){cmd('playVideo');playing=true}else{cmd('pauseVideo');playing=false}
       updatePlayButton();pipOwnerId='';pipWasPlaying=false;
     }
@@ -704,9 +714,11 @@
     if(e.source!==yt.contentWindow||e.origin!=='https://www.youtube.com')return;
     var d;try{d=JSON.parse(e.data)}catch(x){return}
     var s=d.event==='onStateChange'?d.info:(d.info&&d.info.playerState);
-    if(s===1){playing=true;cmd('unloadModule',['captions']);cmd('unloadModule',['cc'])}else if(s===2)playing=false;
-    updatePlayButton();
-    if(s===1)resumePendingVideo();
+    if(!pipActive){
+      if(s===1){playing=true;cmd('unloadModule',['captions']);cmd('unloadModule',['cc'])}else if(s===2)playing=false;
+      updatePlayButton();
+      if(s===1)resumePendingVideo();
+    }
     var inf=d.info;
     if(inf&&typeof inf==='object'){
       if(inf.playlist&&inf.playlist.length&&(inf.playlist.length!==ids.length||inf.playlist[0]!==ids[0]||inf.playlist[inf.playlist.length-1]!==ids[ids.length-1]))setIds(inf.playlist);
@@ -723,8 +735,8 @@
         if(activeId===requestedStartId){requestedStartId='';requestedStartQueue=[];startCorrectionSent=false}
         resumePendingVideo();
       }
-      if(typeof inf.duration==='number'&&inf.duration>0)dur=inf.duration;
-      if(typeof inf.currentTime==='number'){tcur=inf.currentTime;if(!drag)paint(tcur);saveHistoryProgress()}
+      if(!pipActive&&typeof inf.duration==='number'&&inf.duration>0)dur=inf.duration;
+      if(!pipActive&&typeof inf.currentTime==='number'){tcur=inf.currentTime;if(!drag)paint(tcur);saveHistoryProgress()}
       if(typeof inf.playlistIndex==='number'&&inf.playlistIndex!==cur)setCur(inf.playlistIndex);
     }
   });
