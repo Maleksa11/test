@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'malek-tube-shell-v2';
+const CACHE_NAME = 'malek-tube-shell-v3';
 const SHELL_FILES = ['./index.html', './app.js', './manifest.webmanifest', './icon.svg'];
 const SHELL_INDEX = new URL('./index.html', self.location.href).href;
 
