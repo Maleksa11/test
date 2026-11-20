@@ -58,7 +58,7 @@ html[dir=ltr] .row.cur{box-shadow:inset 3px 0 0 var(--ac)}
 #lh{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 12px;font-weight:700;font-size:17px;border-bottom:1px solid #2a2d35}
 #lh button{width:40px;height:40px;border-radius:50%;border:0;background:#26282e;color:#fff;padding:0;display:flex;align-items:center;justify-content:center}
 #rows{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:6px 0 calc(env(safe-area-inset-bottom,0px) + 16px)}
-.row{display:flex;gap:12px;align-items:center;padding:8px 16px;content-visibility:auto;contain-intrinsic-size:auto 66px}
+.row{display:flex;gap:12px;align-items:center;padding:8px 16px}
 .row.cur{background:#1d2026;box-shadow:inset -3px 0 0 var(--ac)}
 .row img{width:88px;height:50px;object-fit:cover;border-radius:6px;background:#1a1c21;flex:none}
 .row span{font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-width:0}
@@ -182,7 +182,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     <div id="resultsSentinel" class="feed-sentinel" aria-hidden="true"></div>
   </section>
   <footer id="foot">
-    <details><summary data-t="privacy">Privacy and storage</summary><p data-t="privacyText">Your watch history and interests are stored in this browser only. Search terms and requested video IDs are sent to external video search instances. There is no account system or shared server-side history in this version. Anyone using the same browser profile can see that profile's local history.</p></details>
+    <details><summary data-t="privacy">Privacy and storage</summary><p data-t="privacyText">Your watch history and interests are stored in this browser only and are not encrypted by the app. Search terms and requested video IDs are sent to external video search instances. There is no account system or shared server-side history in this version. Anyone using the same browser profile can see that profile's local history.</p></details>
     <details><summary data-t="install">Install as an app</summary><p data-t="tip">To open it like an app: on iPhone, tap Share in Safari, then “Add to Home Screen”. On Android, tap ⋮ then “Add to Home screen”.</p></details>
   </footer>
 </main>
@@ -225,7 +225,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
       listWait:'The list has not arrived yet. Let the video play a moment, then open it again.',video:'Video',
       rotate:'Turn your phone sideways',normal:'Back to normal',
       bad:'No valid link found. Paste a video or playlist link.',noclip:'Clipboard unavailable. Paste the link into the box.',clipdeny:'Clipboard access denied. Paste the link manually.'},
-    ar:{sub:'الصق رابطاً للتشغيل أو ابحث في يوتيوب.',privacy:'الخصوصية والتخزين',privacyText:'سجل المشاهدة والاهتمامات محفوظان في هذا المتصفح فقط. يتم إرسال كلمات البحث ومعرّفات الفيديو المطلوبة إلى خدمات بحث فيديو خارجية. لا يوجد في هذه النسخة نظام حسابات أو سجل مشترك على خادم. أي شخص يستخدم ملف المتصفح نفسه يستطيع رؤية السجل المحلي لذلك الملف.',searchPh:'ابحث في يوتيوب...',searchBtn:'بحث',orLink:'أو الصق رابط فيديو / قائمة تشغيل',searching:'جاري البحث في يوتيوب...',loadingSuggest:'جاري تحميل الاقتراحات...',noResults:'ما لقيت فيديوهات.',searchFail:'البحث غير متاح حالياً. جرّب مرة ثانية أو الصق رابطاً.',paste:'لصق وتشغيل',go:'ابدأ',ph:'الصق الرابط هنا',
+    ar:{sub:'الصق رابطاً للتشغيل أو ابحث في يوتيوب.',privacy:'الخصوصية والتخزين',privacyText:'سجل المشاهدة والاهتمامات محفوظان في هذا المتصفح فقط، وهما غير مشفّرين بواسطة الموقع. يتم إرسال كلمات البحث ومعرّفات الفيديو المطلوبة إلى خدمات بحث فيديو خارجية. لا يوجد في هذه النسخة نظام حسابات أو سجل مشترك على خادم. أي شخص يستخدم ملف المتصفح نفسه يستطيع رؤية السجل المحلي لذلك الملف.',searchPh:'ابحث في يوتيوب...',searchBtn:'بحث',orLink:'أو الصق رابط فيديو / قائمة تشغيل',searching:'جاري البحث في يوتيوب...',loadingSuggest:'جاري تحميل الاقتراحات...',noResults:'ما لقيت فيديوهات.',searchFail:'البحث غير متاح حالياً. جرّب مرة ثانية أو الصق رابطاً.',paste:'لصق وتشغيل',go:'ابدأ',ph:'الصق الرابط هنا',
       tip:'لتفتحها كأنها تطبيق بشاشة كاملة: على الآيفون من Safari اضغط المشاركة ثم «إضافة إلى الشاشة الرئيسية». وعلى أندرويد اضغط ⋮ ثم «إضافة إلى الشاشة الرئيسية».',
       videos:'الفيديوهات',playlistTab:'قائمتي',recommendTab:'اقتراحات',recWait:'جاري تحميل اقتراحات هذا الفيديو…',recFail:'تعذر تحميل الاقتراحات حالياً.',recEmpty:'ما لقيت اقتراحات لهذا الفيديو.',noCurrent:'شغّل فيديو أولاً لعرض الاقتراحات.',pip:'صورة داخل صورة',pipPreparing:'جاري تجهيز الصورة المصغّرة. انتظر قليلاً ثم اضغط مرة ثانية.',pipUnsupported:'هذا المتصفح لا يدعم الصورة داخل صورة.',pipUnavailable:'الصورة داخل صورة غير متاحة لهذا الفيديو.',pipFailed:'ما قدرت أشغّل الصورة داخل صورة. جرّب مرة ثانية.',audlbl:'وضع الصوت فقط',hint:'اسحب لفوق للتالي • لمستين يمين أو يسار للتقديم والترجيع',
       back:'رجوع',fit:'ملء أو احتواء',shuf:'عشوائي',aud2:'صوت فقط',list:'القائمة',pip:'صورة داخل صورة',clean:'إخفاء الأزرار',close:'إغلاق',
@@ -265,15 +265,27 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     if(side&&now-lastTap<320){lastTap=0;toggle();seek(tcur+side*10);flash.textContent=side>0?'+10':'−10';flash.classList.add('show');setTimeout(function(){flash.classList.remove('show')},450);return}
     lastTap=now;toggle();
   }
-  function title(id){if(T[id])return T[id];var v=ls('t:'+id);if(v)T[id]=v;return v}
-  function saveTitle(id,t){
-    if(!id||!t||T[id]===t)return;
-    t=String(t).slice(0,300);T[id]=t;ls('t:'+id,t);
+  function touchTitleKey(id){
     var keys=[];try{keys=JSON.parse(ls('titleKeys')||'[]')}catch(e){}
     if(!Array.isArray(keys))keys=[];
     keys=keys.filter(function(x){return x!==id});keys.push(id);
-    while(keys.length>150){var old=keys.shift();delete T[old];try{localStorage.removeItem('malektube:v2:t:'+old)}catch(e){}}
+    while(keys.length>150){
+      var old=keys.shift();delete T[old];
+      try{localStorage.removeItem('malektube:v2:t:'+old)}catch(e){}
+    }
     ls('titleKeys',JSON.stringify(keys));
+  }
+  function title(id){
+    if(T[id])return T[id];
+    var v=ls('t:'+id);
+    if(v){T[id]=v;touchTitleKey(id)}
+    return v;
+  }
+  function saveTitle(id,t){
+    if(!id||!t)return;
+    t=String(t).slice(0,300);
+    if(T[id]!==t){T[id]=t;ls('t:'+id,t)}
+    touchTitleKey(id);
     document.querySelectorAll('.row[data-id="'+id+'"]').forEach(function(r){var target=r.classList.contains('rec-row')?r.querySelector('.rec-title'):r.querySelector('span');if(target)target.textContent=t});
   }
   function fetchTitle(id,done){
@@ -335,7 +347,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
       var meta=document.createElement('small');meta.style.cssText='font-size:11px;color:#8a8f9a;line-height:1.4';
       var bits=[];if(v.author)bits.push(v.author);if(v.viewCountText)bits.push(v.viewCountText);if(v.publishedText)bits.push(v.publishedText);meta.textContent=bits.join(' • ');
       copy.appendChild(titleEl);copy.appendChild(meta);r.appendChild(n);r.appendChild(im);r.appendChild(copy);frag.appendChild(r);
-      if(v.title){T[v.videoId]=v.title;ls('t:'+v.videoId,v.title)}
+      if(v.title)saveTitle(v.videoId,v.title);
     });
     rows.appendChild(frag);
   }
@@ -526,7 +538,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     for(var n=0;n<source.length;n++){if(source[n]&&source[n].id===selectedId){index=n;break}}
     var qd=index>=0?source.slice(index,index+10):[{id:selectedId}];
     if(!qd.length||qd[0].id!==selectedId)qd=[{id:selectedId}];
-    qd.forEach(function(x){if(x.t){T[x.id]=x.t;ls('t:'+x.id,x.t)}});
+    qd.forEach(function(x){if(x.t)saveTitle(x.id,x.t)});
     saveBrowseState();
     start({list:null,vids:qd.map(function(x){return x.id})});
   }
