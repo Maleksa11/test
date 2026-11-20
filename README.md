@@ -5,8 +5,8 @@ A lightweight, client-side YouTube search and player.
 ## Current architecture
 
 - Static frontend; no application server, account system, or shared user database is configured.
-- Watch history, playback position, cached titles, and recommendation preferences are stored in the visitor's browser storage under a versioned namespace.
-- The browser retains at most 60 history entries and 150 cached video titles. Video files are not saved by the app; thumbnails are loaded from YouTube's image CDN.
+- Watch history, playback position, cached titles, and recommendation preferences are stored in the visitor's browser storage under a versioned namespace. This browser storage is not encrypted by the app.
+- The browser retains at most 60 history entries and 150 cached video titles. Clearing history also removes the app's saved title metadata and cached feed. Video files are not saved by the app; thumbnails are loaded from YouTube's image CDN.
 - Searches and video metadata requests go to the public Invidious instances listed in `index.html`. Those services can observe the request and the visitor's IP address. The app does not send the complete watch-history list to them, but search terms derived from watched videos can be sent to build recommendations.
 - The service worker caches only the app shell for offline opening. It does not cache search responses, video streams, watch history, or user-specific API responses.
 
