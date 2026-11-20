@@ -855,15 +855,19 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     setTimeout(function(){$('hint').style.opacity=0},3500);
   }
   function stop(){
-    var save=currentVideoId?recordHistory(currentVideoId):Promise.resolve();
+    var endingId=currentVideoId;
+    var save=endingId?recordHistory(endingId):Promise.resolve();
+    currentVideoId='';clearTimeout(histTimer);
     if(pipActive)stopPip(false);
     yt.src='about:blank';stage.hidden=true;$('setup').hidden=false;closeList();fs(false);stage.classList.remove('land');try{screen.orientation.unlock()}catch(x){}
+    if(browseView==='feed')renderHome(true);
     drawHistory();restoreBrowseState();
     save.then(function(){
+      var currentScroll=window.scrollY||document.documentElement.scrollTop||0;
       drawHistory();
       if(browseView==='feed')renderHome(true);
-      restoreBrowseState();
-    },function(){restoreBrowseState()});
+      window.scrollTo(0,currentScroll);
+    },function(){});
   }
   function go(dir){
     if(busy)return;busy=true;
