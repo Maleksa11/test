@@ -113,9 +113,8 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 .icb{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--fg);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
 #feed,#results{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:22px 16px}
 #feedHint{margin:-4px 0 14px}
-.vcard{display:flex;flex-direction:column;gap:9px;width:100%;padding:0;border:0;background:none;color:var(--fg);font:inherit;text-align:start;cursor:pointer;position:relative}
-.vcard:active .thumb{transform:scale(.985)}
-.thumb{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--card);transition:transform .1s;pointer-events:none}
+.vcard{display:flex;flex-direction:column;gap:9px;width:100%;padding:0;border:0;background:none;color:var(--fg);font:inherit;text-align:start;cursor:pointer;position:relative;touch-action:pan-y}
+.thumb{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--card);pointer-events:none}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
 .thumb em{position:absolute;inset-inline-end:8px;bottom:8px;font-style:normal;font-size:11.5px;font-weight:700;color:#fff;background:rgba(0,0,0,.72);padding:2px 6px;border-radius:6px;font-variant-numeric:tabular-nums;pointer-events:none}
 .vmeta{display:flex;flex-direction:column;gap:3px;padding:0 2px;pointer-events:none}
@@ -264,7 +263,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   }
 
   var apiHosts=['https://inv.nadeko.net','https://invidious.nerdvpn.de','https://yt.chocolatemoo53.com','https://invidious.tiekoetter.com'];
-  var apiStart=0,searchTimer=null,suggestTimer=null,searchSeq=0,suggestSeq=0;
+  var apiStart=0,suggestTimer=null,searchSeq=0,suggestSeq=0;
   function apiGet(path){
     var order=apiHosts.slice(apiStart).concat(apiHosts.slice(0,apiStart));
     function attempt(i){
@@ -414,7 +413,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     (items||[]).slice(0,7).forEach(function(value){
       if(typeof value!=='string'||!value.trim())return;
       var b=document.createElement('button');b.type='button';b.className='suggestion';b.setAttribute('role','option');b.textContent=value;
-      b.addEventListener('click',function(){$('searchInput').value=value;hideSuggestions();searchVideos(value)});
+      b.addEventListener('click',function(){$('searchInput').value=value;hideSuggestions();searchVideos(value,false)});
       box.appendChild(b);
     });
     box.hidden=!box.childNodes.length;
@@ -427,10 +426,10 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     }).catch(function(){if(seq===suggestSeq)hideSuggestions()});
   }
 
-  // ---------- Search with continuous multi-page loading ----------
+  // ---------- Search ----------
   var activeSearchQuery='',searchPage=1,searchBusy=false,searchExhausted=false,searchItems=[];
 
-  function renderSearchPage(list, append){
+  function renderSearchPage(list,append){
     var box=$('results'),frag=document.createDocumentFragment();
     if(!append){box.textContent='';searchItems=[]}
     var seen=Object.create(null);
@@ -447,15 +446,17 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     $('resultsMoreBtn').textContent=searchBusy?tr('loadingMore'):tr('loadMore');
   }
 
-  function searchVideos(value, append){
+  function searchVideos(value,append){
     var query=append?activeSearchQuery:(value||'').trim();
     if(!query)return;
     if(append){
       if(searchBusy||searchExhausted)return;
       searchPage+=1;
     }else{
-      clearTimeout(searchTimer);clearTimeout(suggestTimer);hideSuggestions();
+      clearTimeout(suggestTimer);
+      hideSuggestions();
       searchSeq+=1;
+      searchBusy=false;
       activeSearchQuery=query;
       searchPage=1;
       searchExhausted=false;
@@ -501,7 +502,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   $('resultsMoreBtn').addEventListener('click',function(){searchVideos(activeSearchQuery,true)});
 
   $('searchInput').addEventListener('input',function(){
-    var value=this.value.trim();clearTimeout(suggestTimer);clearTimeout(searchTimer);
+    var value=this.value.trim();clearTimeout(suggestTimer);
     if(!value){showResults(false);return}
     if(value.length<2){hideSuggestions();return}
     suggestTimer=setTimeout(function(){loadSuggestions(value)},230);
@@ -525,7 +526,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   function viewsText(n){n=+n;if(!n)return '';var x;try{x=new Intl.NumberFormat(lang==='ar'?'ar':'en',{notation:'compact',maximumFractionDigits:1}).format(n)}catch(e){x=n.toLocaleString()}return x+' '+tr('views')}
 
   function makeCard(it,i,list){
-    var itemRef=it;
+    var itemRef={id:it.id,t:it.t,a:it.a,v:it.v,l:it.l,p:it.p};
     var b=document.createElement('button');b.type='button';b.className='vcard';b.dataset.vid=itemRef.id;
     var th=document.createElement('span');th.className='thumb';
     var im=document.createElement('img');im.loading='lazy';im.decoding='async';im.alt='';im.src='https://i.ytimg.com/vi/'+encodeURIComponent(itemRef.id)+'/mqdefault.jpg';th.appendChild(im);
@@ -534,7 +535,18 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     var tt=document.createElement('b');tt.textContent=itemRef.t||tr('video');
     var sm=document.createElement('small');sm.textContent=[itemRef.a,viewsText(itemRef.v),itemRef.p].filter(Boolean).join(' • ');
     meta.appendChild(tt);meta.appendChild(sm);b.appendChild(th);b.appendChild(meta);
+
+    var downX=0,downY=0,moved=false;
+    b.addEventListener('pointerdown',function(ev){
+      downX=ev.clientX;
+      downY=ev.clientY;
+      moved=false;
+    },{passive:true});
+    b.addEventListener('pointermove',function(ev){
+      if(Math.abs(ev.clientX-downX)>10||Math.abs(ev.clientY-downY)>10)moved=true;
+    },{passive:true});
     b.addEventListener('click',function(ev){
+      if(moved){moved=false;return}
       ev.preventDefault();
       ev.stopPropagation();
       playExactCard(itemRef,list,i);
@@ -545,21 +557,18 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   function playExactCard(clickedItem,list,i){
     if(!clickedItem||!clickedItem.id)return;
     savedScrollY=window.scrollY||window.pageYOffset||0;
-    var qd=[];
+    var tail=[];
     if(Array.isArray(list)&&list.length){
-      var startIdx=(typeof i==='number'&&i>=0&&i<list.length&&list[i]&&list[i].id===clickedItem.id)?i:list.findIndex(function(x){return x&&x.id===clickedItem.id});
-      qd=(startIdx>=0?list.slice(startIdx,startIdx+12):[clickedItem]);
-      if(!qd.length||qd[0].id!==clickedItem.id)qd=[clickedItem].concat(qd);
-    }else{
-      qd=[clickedItem];
+      var idx=(typeof i==='number'&&i>=0&&i<list.length&&list[i]&&list[i].id===clickedItem.id)?i:list.findIndex(function(x){return x&&x.id===clickedItem.id});
+      if(idx>=0)tail=list.slice(idx+1,idx+12);
     }
+    var qd=[clickedItem].concat(tail);
     var seen=Object.create(null);
     qd=qd.filter(function(x){if(!x||!x.id||seen[x.id])return false;seen[x.id]=1;return true});
     qd.forEach(function(x){if(x.t){T[x.id]=x.t;ls('t:'+x.id,x.t)}});
     start({list:null,vids:qd.map(function(x){return x.id})});
   }
 
-  // watch history (stored only on this device's localStorage)
   function getHist(){try{var a=JSON.parse(ls('hist')||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
   function recordHistory(id){
     if(id!==currentVideoId)return;
