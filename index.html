@@ -748,7 +748,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     try{
       for(var i=localStorage.length-1;i>=0;i--){
         var key=localStorage.key(i);
-        if(key&&(key.indexOf('malektube:v2:t:')===0||/^t:[\\w-]{11}$/.test(key)))localStorage.removeItem(key);
+        if(key&&(key.indexOf('malektube:v2:t:')===0||(key.indexOf('t:')===0&&key.length===13)))localStorage.removeItem(key);
       }
     }catch(e){}
     ls('titleKeys','[]');T={};videoInfoCache=Object.create(null);videoInfoCacheOrder=[];
