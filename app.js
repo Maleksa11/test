@@ -49,7 +49,7 @@
     videoInfoCache[id]=data;videoInfoCacheOrder.push(id);
     while(videoInfoCacheOrder.length>12){var old=videoInfoCacheOrder.shift();delete videoInfoCache[old]}
   }
-  var pipVideo=$('pipVideo'),pipPreparedId='',pipSourceLoadingId='',pipActive=false,pipOwnerId='';
+  var pipVideo=$('pipVideo'),pipPreparedId='',pipSourceLoadingId='',pipActive=false,pipOwnerId='',pipWasPlaying=false;
   try{pipVideo.autoPictureInPicture=true}catch(e){}
   var requestedStartId='',requestedStartQueue=[],startCorrectionSent=false;
   var dur=0,tcur=0,drag=false,lastSec=-1,lastTap=0;
@@ -251,35 +251,67 @@
         pipVideo.currentTime=Math.max(0,tcur||0);
         var playPromise=pipVideo.play();
         var pipPromise=pipVideo.requestPictureInPicture();
-        Promise.all([Promise.resolve(playPromise),Promise.resolve(pipPromise)]).then(function(){pipOwnerId=currentVideoId;pipActive=true;cmd('pauseVideo');playing=false}).catch(function(){pipVideo.pause();hmsg(tr('pipFailed'))});
+        Promise.all([Promise.resolve(playPromise),Promise.resolve(pipPromise)]).then(function(){
+          pipOwnerId=currentVideoId;pipActive=true;pipWasPlaying=!pipVideo.paused;
+          cmd('pauseVideo');playing=pipWasPlaying;updatePlayButton();
+        }).catch(function(){pipVideo.pause();hmsg(tr('pipFailed'))});
         return;
       }
       if(typeof pipVideo.webkitSetPresentationMode==='function'&&typeof pipVideo.webkitSupportsPresentationMode==='function'&&pipVideo.webkitSupportsPresentationMode('picture-in-picture')){
         pipVideo.currentTime=Math.max(0,tcur||0);var playPromise=pipVideo.play();pipVideo.webkitSetPresentationMode('picture-in-picture');
-        playPromise.then(function(){pipOwnerId=currentVideoId;pipActive=true;cmd('pauseVideo');playing=false}).catch(function(){hmsg(tr('pipFailed'))});
+        playPromise.then(function(){
+          pipOwnerId=currentVideoId;pipActive=true;pipWasPlaying=!pipVideo.paused;
+          cmd('pauseVideo');playing=pipWasPlaying;updatePlayButton();
+        }).catch(function(){hmsg(tr('pipFailed'))});
         return;
       }
       hmsg(tr('pipUnsupported'));
     }catch(e){hmsg(tr('pipFailed'))}
   }
   function stopPip(resumeMain){
+    var owner=pipOwnerId,position=pipVideo.currentTime||tcur,shouldResume=pipWasPlaying||!pipVideo.paused;
     try{if(document.pictureInPictureElement===pipVideo&&document.exitPictureInPicture)document.exitPictureInPicture();else if(pipVideo.webkitSetPresentationMode&&pipVideo.webkitSupportsPresentationMode&&pipVideo.webkitSupportsPresentationMode('picture-in-picture'))pipVideo.webkitSetPresentationMode('inline')}catch(e){}
-    pipVideo.pause();pipActive=false;
-    if(resumeMain&&pipOwnerId&&pipOwnerId===currentVideoId){cmd('seekTo',[Math.max(0,pipVideo.currentTime||tcur),true]);cmd('playVideo');playing=true}
-    pipOwnerId='';
+    pipActive=false;pipVideo.pause();
+    if(resumeMain&&owner&&owner===currentVideoId){
+      cmd('seekTo',[Math.max(0,position),true]);
+      if(shouldResume){cmd('playVideo');playing=true}else{cmd('pauseVideo');playing=false}
+      updatePlayButton();
+    }
+    pipOwnerId='';pipWasPlaying=false;
   }
   pipVideo.addEventListener('loadedmetadata',function(){if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=false;pipSourceLoadingId=''}});
   pipVideo.addEventListener('error',function(){if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=true;pipSourceLoadingId=''}});
-  pipVideo.addEventListener('enterpictureinpicture',function(){pipActive=true;pipOwnerId=currentVideoId;cmd('pauseVideo');playing=false});
+  pipVideo.addEventListener('play',function(){
+    if(pipActive){pipWasPlaying=true;playing=true;updatePlayButton()}
+  });
+  pipVideo.addEventListener('pause',function(){
+    if(pipActive){pipWasPlaying=false;playing=false;updatePlayButton()}
+  });
+  pipVideo.addEventListener('enterpictureinpicture',function(){
+    pipActive=true;pipOwnerId=currentVideoId;pipWasPlaying=!pipVideo.paused;
+    cmd('pauseVideo');playing=pipWasPlaying;updatePlayButton();
+  });
   pipVideo.addEventListener('leavepictureinpicture',function(){
-    var owner=pipOwnerId,pos=pipVideo.currentTime||tcur;pipActive=false;
-    if(owner&&owner===currentVideoId){cmd('seekTo',[Math.max(0,pos),true]);cmd('playVideo');playing=true}
-    pipOwnerId='';
+    var owner=pipOwnerId,pos=pipVideo.currentTime||tcur,shouldResume=pipWasPlaying;
+    pipActive=false;
+    if(owner&&owner===currentVideoId){
+      cmd('seekTo',[Math.max(0,pos),true]);
+      if(shouldResume){cmd('playVideo');playing=true}else{cmd('pauseVideo');playing=false}
+      updatePlayButton();
+    }
+    pipOwnerId='';pipWasPlaying=false;
   });
   pipVideo.addEventListener('webkitpresentationmodechanged',function(){
-    var on=pipVideo.webkitPresentationMode==='picture-in-picture';pipActive=on;
-    if(on){pipOwnerId=currentVideoId;cmd('pauseVideo');playing=false}
-    else if(pipOwnerId&&pipOwnerId===currentVideoId){cmd('seekTo',[Math.max(0,pipVideo.currentTime||tcur),true]);cmd('playVideo');playing=true;pipOwnerId=''}
+    var on=pipVideo.webkitPresentationMode==='picture-in-picture';
+    if(on){
+      pipActive=true;pipOwnerId=currentVideoId;pipWasPlaying=!pipVideo.paused;
+      cmd('pauseVideo');playing=pipWasPlaying;updatePlayButton();
+    }else if(pipOwnerId&&pipOwnerId===currentVideoId){
+      var pos=pipVideo.currentTime||tcur,shouldResume=pipWasPlaying;pipActive=false;
+      cmd('seekTo',[Math.max(0,pos),true]);
+      if(shouldResume){cmd('playVideo');playing=true}else{cmd('pauseVideo');playing=false}
+      updatePlayButton();pipOwnerId='';pipWasPlaying=false;
+    }
   });
   pipVideo.addEventListener('ended',function(){if(pipActive)stopPip(true)});
   function hideSuggestions(){var box=$('suggestions');box.hidden=true;box.textContent=''}
@@ -760,7 +792,15 @@
     },200);
   }
   function toggle(){
-    if(playing){cmd('pauseVideo');playing=false;flash.innerHTML=IC_PAUSE}
+    if(pipActive){
+      if(pipVideo.paused){
+        var pp=pipVideo.play();pipWasPlaying=true;playing=true;
+        if(pp&&pp.catch)pp.catch(function(){pipWasPlaying=false;playing=false;updatePlayButton()});
+        flash.innerHTML=IC_PLAY;
+      }else{
+        pipVideo.pause();pipWasPlaying=false;playing=false;flash.innerHTML=IC_PAUSE;
+      }
+    }else if(playing){cmd('pauseVideo');playing=false;flash.innerHTML=IC_PAUSE}
     else{cmd('playVideo');playing=true;flash.innerHTML=IC_PLAY}
     updatePlayButton();
     flash.classList.add('show');setTimeout(function(){flash.classList.remove('show')},450);
