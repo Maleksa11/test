@@ -820,7 +820,7 @@
     startCorrectionSent=false;
     currentVideoId='';recommendedVideos=[];recommendedFor='';$('b-pip').disabled=true;
     if(!p.list&&p.vids&&p.vids[0])setCurrentVideo(p.vids[0],title(p.vids[0])||'');
-    playing=true;
+    playing=false;
     var q='autoplay=1&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&vq=tiny&cc_load_policy=0&enablejsapi=1';
     var b='https://www.youtube.com/embed/';
     var ref='';try{if(/^https?:/.test(location.href))ref='&origin='+encodeURIComponent(location.origin)}catch(e){}
@@ -833,10 +833,11 @@
     setTimeout(function(){$('hint').style.opacity=0},3500);
   }
   function stop(){
+    if(pipActive)stopPip(false);
     var endingId=currentVideoId;
     var save=endingId?recordHistory(endingId):Promise.resolve();
-    currentVideoId='';clearTimeout(histTimer);
-    if(pipActive)stopPip(false);
+    currentVideoId='';clearTimeout(histTimer);clearTimeout(playerStartTimer);
+    playerLoadToken++;playerWantsPlay=false;playerHasStarted=false;playing=false;setPlayerStatus('');
     yt.src='about:blank';stage.hidden=true;$('setup').hidden=false;closeList();fs(false);stage.classList.remove('land');try{screen.orientation.unlock()}catch(x){}
     if(browseView==='feed')renderHome(true);
     drawHistory();restoreBrowseState();
