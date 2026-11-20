@@ -294,7 +294,7 @@
     feedPlan=[],feedPage=1,feedLoading=false,feedHasMore=true,feedSeen=Object.create(null),feedCursor=0,
     searchItems=[],searchPage=1,searchLoading=false,searchHasMore=true,currentSearchQuery='',
     browseItems=[],browseScrollY=0,browseView='feed',browseQuery='',moreObserver=null,
-    historySaveAt=0,pendingResumeId='',pendingResumeAt=0;
+    historySaveAt=0,historyEpoch=0,pendingResumeId='',pendingResumeAt=0;
   var STOP={};('official video videos channel subscribe youtube the and for with from this that you your new full episode part live الفيديو فيديو القناة').split(' ').forEach(function(w){STOP[w]=1});
   var WSPLIT;try{WSPLIT=new RegExp('[^\\p{L}\\p{N}]+','u')}catch(e){WSPLIT=/[^a-z0-9\u0600-\u06ff]+/}
   function normItem(v){return {id:v.videoId,t:v.title||'',a:v.author||'',v:+v.viewCount||0,l:+v.lengthSeconds||0,p:v.publishedText||''}}
@@ -334,8 +334,9 @@
   function getHist(){try{var a=JSON.parse(ls('hist')||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
   function recordHistory(id){
     if(!id)return Promise.resolve();
-    var wasCurrent=id===currentVideoId,position=wasCurrent?Math.floor(tcur||0):0,knownDuration=wasCurrent?Math.floor(dur||0):0;
+    var epoch=historyEpoch,wasCurrent=id===currentVideoId,position=wasCurrent?Math.floor(tcur||0):0,knownDuration=wasCurrent?Math.floor(dur||0):0;
     function add(d){
+      if(epoch!==historyEpoch)return;
       var h=getHist(),old=null;
       h=h.filter(function(e){if(e.i===id){old=e;return false}return true});
       var keywords=((d&&Array.isArray(d.keywords)&&d.keywords.length?d.keywords:(old&&old.k))||[]).slice(0,8).map(function(x){return String(x).slice(0,80)});
@@ -527,6 +528,7 @@
   $('resClose').onclick=function(){$('searchInput').value='';showResults(false)};
   $('histClear').onclick=function(){
     if(!confirm(tr('clearAsk')))return;
+    historyEpoch++;
     ls('hist','[]');ls('feed','');ls('feedCursor','0');feedCursor=0;
     try{
       for(var i=localStorage.length-1;i>=0;i--){
