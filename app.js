@@ -286,7 +286,12 @@
     }
     pipOwnerId='';pipWasPlaying=false;
   }
-  pipVideo.addEventListener('loadedmetadata',function(){if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=false;pipSourceLoadingId=''}});
+  pipVideo.addEventListener('loadedmetadata',function(){
+    if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=false;pipSourceLoadingId=''}
+    if(document.visibilityState==='hidden'&&playing&&!pipActive&&pipPreparedId===currentVideoId){
+      try{requestPip()}catch(e){}
+    }
+  });
   pipVideo.addEventListener('error',function(){if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=true;pipSourceLoadingId=''}});
   pipVideo.addEventListener('timeupdate',function(){
     if(pipActive){
