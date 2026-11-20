@@ -1,7 +1,7 @@
 'use strict';
 
 const CACHE_NAME = 'malek-tube-shell-v1';
-const SHELL_FILES = ['./index.html', './manifest.webmanifest', './icon.svg'];
+const SHELL_FILES = ['./index.html', './app.js', './manifest.webmanifest', './icon.svg'];
 const SHELL_INDEX = new URL('./index.html', self.location.href).href;
 
 self.addEventListener('install', (event) => {
