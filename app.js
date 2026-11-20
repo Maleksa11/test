@@ -181,7 +181,7 @@
   // Public instances can become unavailable, so requests fall back to the next host.
   var apiHosts=['https://inv.nadeko.net','https://invidious.nerdvpn.de','https://yt.chocolatemoo53.com','https://invidious.tiekoetter.com'];
   var apiStart=0,searchTimer=null,suggestTimer=null,searchSeq=0,suggestSeq=0;
-  function apiGet(path,retryEmptySearch){
+  function apiGet(path,retryEmptySearch,validateData){
     var order=apiHosts.slice(apiStart).concat(apiHosts.slice(0,apiStart));
     function attempt(i,emptySeen){
       if(i>=order.length)return emptySeen?Promise.resolve([]):Promise.reject(new Error('All search instances failed'));
@@ -194,6 +194,7 @@
         return r.json();
       }).then(function(data){
         if(timer)clearTimeout(timer);
+        if(validateData&&!validateData(data))return attempt(i+1,emptySeen);
         if(retryEmptySearch){
           if(!Array.isArray(data))return attempt(i+1,emptySeen);
           if(!data.some(isSearchVideo))return attempt(i+1,true);
@@ -250,7 +251,7 @@
     if(!pendingResumeId||pendingResumeId!==currentVideoId||pendingResumeAt<=5||!playing)return;
     var resumeId=pendingResumeId,resumeAt=pendingResumeAt;
     pendingResumeId='';pendingResumeAt=0;
-    setTimeout(function(){if(currentVideoId===resumeId){cmd('seekTo',[resumeAt,true]);tcur=resumeAt}},700);
+    setTimeout(function(){if(currentVideoId===resumeId)seek(resumeAt)},700);
   }
   function applyDurationFallback(id,data){
     var seconds=Number(data&&data.lengthSeconds);
@@ -266,7 +267,7 @@
     }
     if(videoInfoRequests[id])return videoInfoRequests[id];
     var url='/api/v1/videos/'+encodeURIComponent(id)+'?hl='+(lang==='ar'?'ar':'en')+'&region=JO';
-    var req=apiGet(url).then(function(data){
+    var req=apiGet(url,false,function(data){return !!(data&&validVideoId(data.videoId))}).then(function(data){
       rememberVideoInfo(id,data);
       if(id===currentVideoId){applyDurationFallback(id,data);preparePipSource(id,data);if(currentTab==='recommendations')renderRecommendations(id,data)}
       return data;
@@ -293,7 +294,8 @@
     currentVideoId=id;
     if(videoTitle)saveTitle(id,videoTitle);
     if(changed){
-      dur=0;tcur=0;lastSec=-1;progressClockRunning=false;lastClockAt=0;lastRemoteTimeAt=0;
+      var wasPlaying=playerHasStarted&&playing;
+      dur=0;tcur=0;lastSec=-1;progressClockRunning=wasPlaying;lastClockAt=Date.now();lastRemoteTimeAt=lastClockAt;
       $('pf').style.transform='scaleX(0)';$('tmCurrent').textContent='0:00';$('tmDuration').textContent='0:00';hideSeekPreview();
       clearTimeout(histTimer);(function(hid){histTimer=setTimeout(function(){recordHistory(hid)},12000)})(id);
       recommendedVideos=[];recommendedFor='';
