@@ -742,7 +742,18 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   });
   $('feedRefresh').onclick=function(){renderHome(true)};
   $('resClose').onclick=function(){$('searchInput').value='';showResults(false)};
-  $('histClear').onclick=function(){if(confirm(tr('clearAsk'))){ls('hist','[]');ls('feed','');drawHistory();feedSeen=Object.create(null);renderHome(true)}};
+  $('histClear').onclick=function(){
+    if(!confirm(tr('clearAsk')))return;
+    ls('hist','[]');ls('feed','');ls('feedCursor','0');feedCursor=0;
+    try{
+      for(var i=localStorage.length-1;i>=0;i--){
+        var key=localStorage.key(i);
+        if(key&&(key.indexOf('malektube:v2:t:')===0||/^t:[\\w-]{11}$/.test(key)))localStorage.removeItem(key);
+      }
+    }catch(e){}
+    ls('titleKeys','[]');T={};videoInfoCache=Object.create(null);videoInfoCacheOrder=[];
+    drawHistory();feedSeen=Object.create(null);renderHome(true);
+  };
   $('searchInput').addEventListener('input',function(){if(!this.value.trim())showResults(false)});
 
   function pump(){while(active<3&&q.length){var id=q.shift();active++;fetchTitle(id,function(){active--;pump()})}}
