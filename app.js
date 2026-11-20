@@ -3,14 +3,14 @@
   var lang='en',L={
     en:{sub:'Paste a link to start, or search YouTube.',privacy:'Privacy and storage',privacyText:'Your watch history and interests are stored in this browser only. Search terms and requested video IDs are sent to external video search instances. There is no account system or shared server-side history in this version. Anyone using the same browser profile can see that profile’s local history.',searchPh:'Search YouTube...',searchBtn:'Search',orLink:'Or paste a video / playlist link',searching:'Searching YouTube...',loadingSuggest:'Loading suggestions...',noResults:'No videos found.',searchFail:'Search is temporarily unavailable. Try again or paste a link.',paste:'Paste & play',go:'Start',ph:'Paste link here',
       tip:'To open it like an app: on iPhone, tap Share in Safari, then “Add to Home Screen”. On Android, tap ⋮ then “Add to Home screen”.',
-      videos:'Videos',playlistTab:'My list',recommendTab:'Recommended',recWait:'Loading recommendations for this video…',recFail:'Could not load recommendations right now.',recEmpty:'No recommendations found for this video.',noCurrent:'Play a video first to see recommendations.',pip:'Picture in picture',pipPreparing:'Preparing picture-in-picture. Wait a moment, then tap again.',pipUnsupported:'Picture-in-picture is not supported by this browser.',pipUnavailable:'Picture-in-picture is unavailable for this video.',pipFailed:'Could not start picture-in-picture. Try again.',audlbl:'Audio only mode',hint:'Swipe up for next • Double-tap left or right to skip • Use PiP before leaving',
+      videos:'Videos',playlistTab:'My list',recommendTab:'Recommended',recWait:'Loading recommendations for this video…',recFail:'Could not load recommendations right now.',recEmpty:'No recommendations found for this video.',noCurrent:'Play a video first to see recommendations.',pip:'Picture in picture',pipPreparing:'Preparing picture-in-picture. Wait a moment, then tap again.',pipUnsupported:'Picture-in-picture is not supported by this browser.',pipUnavailable:'Picture-in-picture is unavailable for this video.',pipFailed:'Could not start picture-in-picture. Try again.',audlbl:'Audio only mode',hint:'Swipe up for next • Double-tap left or right to skip',
       back:'Back',fit:'Fill / fit',shuf:'Shuffle',aud2:'Audio only',list:'List',pip:'Picture in picture',clean:'Hide buttons',close:'Close',
       listWait:'The list has not arrived yet. Let the video play a moment, then open it again.',video:'Video',
       rotate:'Turn your phone sideways',normal:'Back to normal',
       bad:'No valid link found. Paste a video or playlist link.',noclip:'Clipboard unavailable. Paste the link into the box.',clipdeny:'Clipboard access denied. Paste the link manually.'},
     ar:{sub:'الصق رابطاً للتشغيل أو ابحث في يوتيوب.',privacy:'الخصوصية والتخزين',privacyText:'سجل المشاهدة والاهتمامات محفوظان في هذا المتصفح فقط، وهما غير مشفّرين بواسطة الموقع. يتم إرسال كلمات البحث ومعرّفات الفيديو المطلوبة إلى خدمات بحث فيديو خارجية. لا يوجد في هذه النسخة نظام حسابات أو سجل مشترك على خادم. أي شخص يستخدم ملف المتصفح نفسه يستطيع رؤية السجل المحلي لذلك الملف.',searchPh:'ابحث في يوتيوب...',searchBtn:'بحث',orLink:'أو الصق رابط فيديو / قائمة تشغيل',searching:'جاري البحث في يوتيوب...',loadingSuggest:'جاري تحميل الاقتراحات...',noResults:'ما لقيت فيديوهات.',searchFail:'البحث غير متاح حالياً. جرّب مرة ثانية أو الصق رابطاً.',paste:'لصق وتشغيل',go:'ابدأ',ph:'الصق الرابط هنا',
       tip:'لتفتحها كأنها تطبيق بشاشة كاملة: على الآيفون من Safari اضغط المشاركة ثم «إضافة إلى الشاشة الرئيسية». وعلى أندرويد اضغط ⋮ ثم «إضافة إلى الشاشة الرئيسية».',
-      videos:'الفيديوهات',playlistTab:'قائمتي',recommendTab:'اقتراحات',recWait:'جاري تحميل اقتراحات هذا الفيديو…',recFail:'تعذر تحميل الاقتراحات حالياً.',recEmpty:'ما لقيت اقتراحات لهذا الفيديو.',noCurrent:'شغّل فيديو أولاً لعرض الاقتراحات.',pip:'صورة داخل صورة',pipPreparing:'جاري تجهيز الصورة المصغّرة. انتظر قليلاً ثم اضغط مرة ثانية.',pipUnsupported:'هذا المتصفح لا يدعم الصورة داخل صورة.',pipUnavailable:'الصورة داخل صورة غير متاحة لهذا الفيديو.',pipFailed:'ما قدرت أشغّل الصورة داخل صورة. جرّب مرة ثانية.',audlbl:'وضع الصوت فقط',hint:'اسحب لفوق للتالي • لمستين للتقديم أو الترجيع • استخدم الصورة الصغيرة قبل الخروج',
+      videos:'الفيديوهات',playlistTab:'قائمتي',recommendTab:'اقتراحات',recWait:'جاري تحميل اقتراحات هذا الفيديو…',recFail:'تعذر تحميل الاقتراحات حالياً.',recEmpty:'ما لقيت اقتراحات لهذا الفيديو.',noCurrent:'شغّل فيديو أولاً لعرض الاقتراحات.',pip:'صورة داخل صورة',pipPreparing:'جاري تجهيز الصورة المصغّرة. انتظر قليلاً ثم اضغط مرة ثانية.',pipUnsupported:'هذا المتصفح لا يدعم الصورة داخل صورة.',pipUnavailable:'الصورة داخل صورة غير متاحة لهذا الفيديو.',pipFailed:'ما قدرت أشغّل الصورة داخل صورة. جرّب مرة ثانية.',audlbl:'وضع الصوت فقط',hint:'اسحب لفوق للتالي • لمستين للتقديم أو الترجيع',
       back:'رجوع',fit:'ملء أو احتواء',shuf:'عشوائي',aud2:'صوت فقط',list:'القائمة',pip:'صورة داخل صورة',clean:'إخفاء الأزرار',close:'إغلاق',
       listWait:'القائمة لسا ما وصلت. شغّل الفيديو شوي وافتحها مرة ثانية.',video:'فيديو',
       rotate:'دوّر التلفون على الجنب',normal:'رجعت للوضع العادي',
@@ -21,15 +21,13 @@
     forYou:'For you',popular:'Popular picks',recent:'Recently watched',feedHint:'Watch a few videos and this page will learn what you like.',
     feedFail:'Could not load videos right now.',retry:'Try again',views:'views',results:'Results',clearHist:'Clear my history',
     clearAsk:'Clear your watch history on this device?',install:'Install as an app',refresh:'Refresh',
-    loadingMore:'Loading more videos…',download:'Open official download options',
-    downloadHint:'YouTube opens here. The official Download option appears only when YouTube makes it available.',
+    loadingMore:'Loading more videos…',
     play:'Play',pause:'Pause',playerLoading:'Loading video…',playerTap:'Video is ready. Tap Play if it does not start.',playerError:'YouTube could not play this video. Try another video.'});
   Object.assign(L.ar,{searchPh:'ابحث…',searching:'جاري البحث…',ph:'الصق رابط فيديو أو قائمة تشغيل',paste:'لصق',go:'تشغيل',
     forYou:'لأجلك',popular:'مقترحات رائجة',recent:'شو شاهدت مؤخراً',feedHint:'شاهد بعض الفيديوهات وهاي الصفحة بتتعلم شو بتحب.',
     feedFail:'ما قدرت أحمّل الفيديوهات هلأ.',retry:'جرّب مرة ثانية',views:'مشاهدة',results:'النتائج',clearHist:'مسح سجلّي',
     clearAsk:'مسح سجل المشاهدة من هالجهاز؟',install:'تثبيته كتطبيق',refresh:'تحديث',
-    loadingMore:'جاري تحميل فيديوهات إضافية…',download:'فتح خيارات التنزيل الرسمية',
-    downloadHint:'تم فتح يوتيوب. خيار التنزيل الرسمي يظهر فقط إذا كان متاحاً من يوتيوب.',
+    loadingMore:'جاري تحميل فيديوهات إضافية…',
     play:'تشغيل',pause:'إيقاف مؤقت',playerLoading:'جاري تحميل الفيديو…',playerTap:'الفيديو جاهز. اضغط تشغيل إذا ما بدأ لحاله.',playerError:'تعذّر تشغيل هذا الفيديو من يوتيوب. جرّب فيديو آخر.'});
   function setLang(l){
     lang=l;var h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
@@ -50,18 +48,47 @@
     while(videoInfoCacheOrder.length>12){var old=videoInfoCacheOrder.shift();delete videoInfoCache[old]}
   }
   var pipVideo=$('pipVideo'),pipPreparedId='',pipSourceLoadingId='',pipActive=false,pipOwnerId='',pipWasPlaying=false;
+  function setPipButtonDisabled(disabled){var b=$('b-pip');if(b)b.disabled=!!disabled}
   try{pipVideo.autoPictureInPicture=true}catch(e){}
   var requestedStartId='',requestedStartQueue=[],startCorrectionSent=false;
   var playerLoadToken=0,playerStartTimer=0,playerHasStarted=false,playerWantsPlay=false;
-  var dur=0,tcur=0,drag=false,lastSec=-1,lastTap=0;
+  var dur=0,tcur=0,drag=false,lastSec=-1,lastTap=0,progressPollTimer=0,controlsHideTimer=0;
   function fmt(s){s=Math.max(0,Math.floor(s));var m=Math.floor(s/60),h=Math.floor(m/60),r=('0'+s%60).slice(-2);return h?h+':'+('0'+m%60).slice(-2)+':'+r:m+':'+r}
   function paint(t){
-    if(!dur)return;
+    if(!Number.isFinite(dur)||dur<=0)return;
+    t=Math.max(0,Math.min(dur,Number.isFinite(+t)?+t:0));
     $('pf').style.transform='scaleX('+Math.max(0,Math.min(1,t/dur))+')';
-    var sec=Math.floor(t);
-    if(sec!==lastSec){lastSec=sec;$('tmCurrent').textContent=fmt(t);$('tmDuration').textContent=fmt(dur)}
+    var sec=Math.floor(t),currentText=fmt(t),durationText=fmt(dur);
+    if(sec!==lastSec||$('tmCurrent').textContent!==currentText){lastSec=sec;$('tmCurrent').textContent=currentText}
+    if($('tmDuration').textContent!==durationText)$('tmDuration').textContent=durationText;
   }
-  function seek(t){if(dur)t=Math.min(t,dur-1);t=Math.max(0,t);cmd('seekTo',[t,true]);tcur=t;lastSec=-1;paint(t)}
+  function seek(t){
+    if(!Number.isFinite(+t))return;
+    if(dur)t=Math.min(+t,Math.max(0,dur-0.25));
+    t=Math.max(0,+t);cmd('seekTo',[t,true]);tcur=t;lastSec=-1;paint(t);
+    if(playerHasStarted)cmd('getCurrentTime');
+  }
+  function startProgressPolling(token){
+    clearInterval(progressPollTimer);
+    progressPollTimer=setInterval(function(){
+      if(token!==playerLoadToken||stage.hidden||pipActive||!playerHasStarted)return;
+      if(!drag)cmd('getCurrentTime');
+      if(!dur)cmd('getDuration');
+    },650);
+  }
+  function scheduleControlsHide(){
+    clearTimeout(controlsHideTimer);
+    if(stage.hidden||!playing||$('list').classList.contains('open'))return;
+    controlsHideTimer=setTimeout(function(){
+      if(stage.hidden||!playing||$('list').classList.contains('open'))return;
+      if(drag){scheduleControlsHide();return}
+      stage.classList.add('controls-hidden');
+    },2800);
+  }
+  function revealControls(){
+    if(stage.hidden)return;
+    stage.classList.remove('controls-hidden','clean');scheduleControlsHide();
+  }
   function updatePlayButton(){
     var b=$('b-toggle');if(!b)return;
     b.dataset.a=playing?'pause':'play';b.setAttribute('aria-label',tr(playing?'pause':'play'));
@@ -94,9 +121,10 @@
     ratio=Math.max(0,Math.min(1,ratio));
     var seconds=ratio*dur,frame=storyboardAt(currentVideoId,seconds);
     var p=$('seekPreview'),thumb=$('seekThumb'),tw=160;
-    var left=Math.max(82,Math.min(Math.max(82,trk.clientWidth-82),ratio*trk.clientWidth));
+    p.classList.toggle('no-thumb',!frame);p.style.display='flex';
+    var half=Math.min(p.offsetWidth/2,Math.max(24,trk.clientWidth/2));
+    var left=Math.max(half,Math.min(trk.clientWidth-half,ratio*trk.clientWidth));
     p.style.left=left+'px';$('previewTime').textContent=fmt(seconds);
-    p.classList.toggle('no-thumb',!frame);
     if(frame){
       var th=Math.max(54,Math.round(tw*frame.h/frame.w));
       thumb.style.width=tw+'px';thumb.style.height=th+'px';
@@ -104,10 +132,12 @@
       thumb.style.backgroundSize=(frame.cols*tw)+'px '+(frame.rows*th)+'px';
       thumb.style.backgroundPosition=(-frame.col*tw)+'px '+(-frame.row*th)+'px';
     }
-    p.style.display='flex';seekHover=true;
+    seekHover=true;
   }
   function tap(x){
+    var wasHidden=stage.classList.contains('controls-hidden')||stage.classList.contains('clean');
     var now=Date.now(),w=rot()?window.innerHeight:window.innerWidth,side=x<w/3?-1:(x>w*2/3?1:0);
+    revealControls();if(wasHidden){lastTap=now;return}
     if(side&&now-lastTap<320){
       lastTap=0;seek(tcur+side*10);flash.textContent=side>0?'+10':'−10';
       flash.classList.add('show');setTimeout(function(){flash.classList.remove('show')},450);return;
@@ -175,9 +205,9 @@
   function preparePipSource(id,data){
     if(!id||id!==currentVideoId)return;
     var stream=pickPipStream(data);
-    if(!stream){$('b-pip').disabled=true;return}
-    if(pipPreparedId===id&&pipVideo.src===stream.url){$('b-pip').disabled=pipVideo.readyState<1;return}
-    try{pipVideo.pause();$('b-pip').disabled=true;pipSourceLoadingId=id;pipVideo.src=stream.url;pipVideo.load();pipPreparedId=id}catch(e){$('b-pip').disabled=true}
+    if(!stream){setPipButtonDisabled(true);return}
+    if(pipPreparedId===id&&pipVideo.src===stream.url){setPipButtonDisabled(pipVideo.readyState<1);return}
+    try{pipVideo.pause();setPipButtonDisabled(true);pipSourceLoadingId=id;pipVideo.src=stream.url;pipVideo.load();pipPreparedId=id}catch(e){setPipButtonDisabled(true)}
   }
   function renderRecommendations(id,data){
     if(id!==currentVideoId||currentTab!=='recommendations')return;
@@ -240,7 +270,7 @@
     if(changed){
       clearTimeout(histTimer);(function(hid){histTimer=setTimeout(function(){recordHistory(hid)},12000)})(id);
       recommendedVideos=[];recommendedFor='';
-      $('b-pip').disabled=true;
+      setPipButtonDisabled(true);
       if(pipActive&&pipOwnerId!==id)stopPip(true);
       if(pipVideo){try{pipVideo.autoPictureInPicture=true}catch(e){}}
       loadVideoInfo(id).catch(function(){});
@@ -288,12 +318,12 @@
     pipOwnerId='';pipWasPlaying=false;
   }
   pipVideo.addEventListener('loadedmetadata',function(){
-    if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=false;pipSourceLoadingId=''}
+    if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){setPipButtonDisabled(false);pipSourceLoadingId=''}
     if(document.visibilityState==='hidden'&&playing&&!pipActive&&pipPreparedId===currentVideoId){
       try{requestPip()}catch(e){}
     }
   });
-  pipVideo.addEventListener('error',function(){if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){$('b-pip').disabled=true;pipSourceLoadingId=''}});
+  pipVideo.addEventListener('error',function(){if(pipSourceLoadingId&&pipSourceLoadingId===currentVideoId){setPipButtonDisabled(true);pipSourceLoadingId=''}});
   pipVideo.addEventListener('timeupdate',function(){
     if(pipActive){
       tcur=pipVideo.currentTime||tcur;
@@ -733,6 +763,7 @@
         try{yt.contentWindow.postMessage(JSON.stringify({event:'listening',id:1,channel:'widget'}),'https://www.youtube.com')}catch(e){}
         cmd('addEventListener',['onAutoplayBlocked']);
         cmd('addEventListener',['onError']);
+        cmd('addEventListener',['onStateChange']);
         if(playerWantsPlay&&!playerHasStarted&&!pipActive){
           setTimeout(function(){if(token===playerLoadToken&&playerWantsPlay&&!playerHasStarted)cmd('playVideo')},120);
         }
@@ -761,8 +792,9 @@
       if(s===1){
         playerHasStarted=true;playerWantsPlay=false;clearTimeout(playerStartTimer);setPlayerStatus('');
         playing=true;cmd('unloadModule',['captions']);cmd('unloadModule',['cc']);
+        startProgressPolling(playerLoadToken);revealControls();
       }else if(s===2){
-        playing=false;
+        playing=false;clearTimeout(controlsHideTimer);stage.classList.remove('controls-hidden');
         if(!playerHasStarted&&playerWantsPlay)setPlayerStatus('blocked');
       }
       updatePlayButton();
@@ -784,8 +816,10 @@
         if(activeId===requestedStartId){requestedStartId='';requestedStartQueue=[];startCorrectionSent=false}
         resumePendingVideo();
       }
-      if(!pipActive&&typeof inf.duration==='number'&&inf.duration>0)dur=inf.duration;
-      if(!pipActive&&typeof inf.currentTime==='number'){tcur=inf.currentTime;if(!drag)paint(tcur);saveHistoryProgress()}
+      if(!pipActive){
+        if(typeof inf.duration==='number'&&Number.isFinite(inf.duration)&&inf.duration>0){dur=inf.duration;if(!drag)paint(tcur)}
+        if(typeof inf.currentTime==='number'&&Number.isFinite(inf.currentTime)&&inf.currentTime>=0){tcur=inf.currentTime;if(!drag)paint(tcur);saveHistoryProgress()}
+      }
       if(typeof inf.playlistIndex==='number'&&inf.playlistIndex!==cur)setCur(inf.playlistIndex);
     }
   });
@@ -805,7 +839,8 @@
     if(!p.list&&!p.vids.length)return;
     if(pendingResumeId&&(!p.vids||p.vids[0]!==pendingResumeId)){pendingResumeId='';pendingResumeAt=0}
     if(currentVideoId)recordHistory(currentVideoId);
-    clearTimeout(histTimer);dur=0;tcur=0;lastSec=-1;historySaveAt=0;
+    clearTimeout(histTimer);clearInterval(progressPollTimer);clearTimeout(controlsHideTimer);
+    dur=0;tcur=0;lastSec=-1;historySaveAt=0;stage.classList.remove('controls-hidden','clean');
     $('pf').style.transform='scaleX(0)';$('tmCurrent').textContent='0:00';$('tmDuration').textContent='0:00';hideSeekPreview();
     preserveSavedPlaylist=!!keepSavedPlaylist;
     playerLoadToken++;var activeLoadToken=playerLoadToken;
@@ -820,7 +855,7 @@
     requestedStartId=p.list?'':p.vids[0];
     requestedStartQueue=p.list?[]:p.vids.slice();
     startCorrectionSent=false;
-    currentVideoId='';recommendedVideos=[];recommendedFor='';$('b-pip').disabled=true;
+    currentVideoId='';recommendedVideos=[];recommendedFor='';setPipButtonDisabled(true);
     if(!p.list&&p.vids&&p.vids[0])setCurrentVideo(p.vids[0],title(p.vids[0])||'');
     playing=false;
     var q='autoplay=1&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&vq=tiny&cc_load_policy=0&enablejsapi=1';
@@ -848,8 +883,8 @@
     if(pipActive)stopPip(false);
     var endingId=currentVideoId;
     var save=endingId?recordHistory(endingId):Promise.resolve();
-    currentVideoId='';clearTimeout(histTimer);clearTimeout(playerStartTimer);
-    playerLoadToken++;playerWantsPlay=false;playerHasStarted=false;playing=false;setPlayerStatus('');
+    currentVideoId='';clearTimeout(histTimer);clearTimeout(playerStartTimer);clearInterval(progressPollTimer);clearTimeout(controlsHideTimer);
+    playerLoadToken++;playerWantsPlay=false;playerHasStarted=false;playing=false;setPlayerStatus('');stage.classList.remove('controls-hidden','clean');
     yt.src='about:blank';stage.hidden=true;$('setup').hidden=false;closeList();fs(false);stage.classList.remove('land');try{screen.orientation.unlock()}catch(x){}
     if(browseView==='feed')renderHome(true);
     drawHistory();restoreBrowseState();
@@ -875,6 +910,7 @@
     },200);
   }
   function toggle(){
+    revealControls();
     if(pipActive){
       if(pipVideo.paused){
         var pp=pipVideo.play();pipWasPlaying=true;playing=true;
@@ -888,10 +924,12 @@
       playerWantsPlay=true;setPlayerStatus('loading');cmd('playVideo');playing=true;flash.innerHTML=IC_PLAY;
     }
     updatePlayButton();
+    if(playing)revealControls();else{clearTimeout(controlsHideTimer);stage.classList.remove('controls-hidden')}
     flash.classList.add('show');setTimeout(function(){flash.classList.remove('show')},450);
   }
   var y0=0,x0=0,t0=0;
   var t=$('touch');
+  stage.addEventListener('pointerdown',function(){if(!stage.hidden)revealControls()},{passive:true});
   t.addEventListener('touchstart',function(e){var p=e.changedTouches[0];y0=p.clientY;x0=p.clientX;t0=Date.now()},{passive:true});
   t.addEventListener('touchmove',function(e){e.preventDefault()},{passive:false});
   t.addEventListener('touchend',function(e){
@@ -902,11 +940,6 @@
   });
   $('b-toggle').onclick=toggle;
   $('b-back').onclick=stop;
-  $('b-download').onclick=function(){
-    if(!validVideoId(currentVideoId)){hmsg(tr('pipUnavailable'));return}
-    window.open('https://www.youtube.com/watch?v='+encodeURIComponent(currentVideoId),'_blank','noopener,noreferrer');
-    hmsg(tr('downloadHint'));
-  };
   var lastFit=0;
   $('b-fit').onclick=function(){
     var now=Date.now(),dbl=now-lastFit<350;lastFit=dbl?0:now;
@@ -966,7 +999,6 @@
   $('b-list').onclick=function(){switchListTab('playlist');$('list').classList.add('open');var c=$('rows').querySelector('.cur');if(c)c.scrollIntoView({block:'center'})};
   $('tabPlaylist').onclick=function(){switchListTab('playlist')};
   $('tabRecommendations').onclick=function(){switchListTab('recommendations')};
-  $('b-pip').onclick=requestPip;
   $('lclose').onclick=closeList;
   $('lang').onclick=function(){setLang(lang==='en'?'ar':'en')};
   $('b-clean').onclick=function(){stage.classList.toggle('clean')};
@@ -986,7 +1018,7 @@
   trk.addEventListener('pointerup',function(e){
     if(!drag)return;
     var target=tpos(e);drag=false;trk.classList.remove('dragging');
-    seek(target);hideSeekPreview();
+    seek(target);hideSeekPreview();scheduleControlsHide();
   });
   trk.addEventListener('pointercancel',function(){drag=false;trk.classList.remove('dragging');hideSeekPreview()});
   trk.addEventListener('pointerleave',function(){if(!drag)hideSeekPreview()});
@@ -1022,4 +1054,4 @@
   });
 })();
 
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=5',{updateViaCache:'none'}).catch(function(){})
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=6',{updateViaCache:'none'}).catch(function(){})
