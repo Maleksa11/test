@@ -254,7 +254,12 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   var ids=[],cur=-1,T={},io=null,q=[],active=0;
   var playlistIds=[],originalPlaylistId=null,preserveSavedPlaylist=false;
   var currentVideoId='',currentTab='playlist',recommendedVideos=[],recommendedFor='',recommendationSeq=0;
-  var videoInfoCache=Object.create(null),videoInfoRequests=Object.create(null);
+  var videoInfoCache=Object.create(null),videoInfoRequests=Object.create(null),videoInfoCacheOrder=[];
+  function rememberVideoInfo(id,data){
+    if(videoInfoCache[id])videoInfoCacheOrder=videoInfoCacheOrder.filter(function(x){return x!==id});
+    videoInfoCache[id]=data;videoInfoCacheOrder.push(id);
+    while(videoInfoCacheOrder.length>12){var old=videoInfoCacheOrder.shift();delete videoInfoCache[old]}
+  }
   var pipVideo=$('pipVideo'),pipPreparedId='',pipSourceLoadingId='',pipActive=false,pipOwnerId='';
   var dur=0,tcur=0,drag=false,lastSec=-1,lastTap=0;
   function fmt(s){s=Math.max(0,Math.floor(s));var m=Math.floor(s/60),h=Math.floor(m/60),r=('0'+s%60).slice(-2);return h?h+':'+('0'+m%60).slice(-2)+':'+r:m+':'+r}
@@ -315,7 +320,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     var all=Array.isArray(data&&data.formatStreams)?data.formatStreams:[];
     var playable=all.filter(function(f){
       if(!f||!f.url||!f.type||!pipVideo.canPlayType(f.type))return false;
-      try{var u=new URL(f.url,location.href);return u.protocol==='https:'&&u.hostname.toLowerCase().split('.').slice(-2).join('.')==='googlevideo.com'}catch(e){return false}
+      try{var u=new URL(f.url,location.href),host=u.hostname.toLowerCase();return u.protocol==='https:'&&(host==='googlevideo.com'||host.endsWith('.googlevideo.com'))}catch(e){return false}
     });
     if(!playable.length)return null;
     function quality(f){var label=String(f.qualityLabel||f.quality||'');var m=label.match(/(\d{3,4})/);if(m)return +m[1];if(label==='medium')return 360;if(label==='small')return 240;if(label==='large')return 480;return 0}
@@ -363,7 +368,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     if(videoInfoRequests[id])return videoInfoRequests[id];
     var url='/api/v1/videos/'+encodeURIComponent(id)+'?hl='+(lang==='ar'?'ar':'en')+'&region=JO';
     var req=apiGet(url).then(function(data){
-      videoInfoCache[id]=data;
+      rememberVideoInfo(id,data);
       if(id===currentVideoId){preparePipSource(id,data);if(currentTab==='recommendations')renderRecommendations(id,data)}
       return data;
     }).catch(function(err){
@@ -812,7 +817,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
       if(inf.playlist&&inf.playlist.length&&(inf.playlist.length!==ids.length||inf.playlist[0]!==ids[0]||inf.playlist[inf.playlist.length-1]!==ids[ids.length-1]))setIds(inf.playlist);
       if(inf.videoData&&inf.videoData.video_id){
         var activeId=inf.videoData.video_id;setCurrentVideo(activeId,inf.videoData.title||'');
-        if(s===1)resumePendingVideo();
+        resumePendingVideo();
       }
       if(typeof inf.duration==='number'&&inf.duration>0)dur=inf.duration;
       if(typeof inf.currentTime==='number'){tcur=inf.currentTime;if(!drag)paint(tcur);saveHistoryProgress()}
@@ -846,7 +851,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     playing=true;
     var q='autoplay=1&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&vq=tiny&cc_load_policy=0&enablejsapi=1';
     var b='https://www.youtube.com/embed/';
-    var ref='';try{if(/^https?:/.test(location.href))ref='&origin='+encodeURIComponent(location.origin)+'&widget_referrer='+encodeURIComponent(location.href.split('#')[0])}catch(e){}
+    var ref='';try{if(/^https?:/.test(location.href))ref='&origin='+encodeURIComponent(location.origin)}catch(e){}
     q+=ref;
     yt.src=p.list?b+'videoseries?list='+encodeURIComponent(p.list)+'&'+q:b+p.vids[0]+'?playlist='+encodeURIComponent(p.vids.join(','))+'&'+q;
     yt.onload=listen;
