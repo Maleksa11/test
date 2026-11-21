@@ -364,7 +364,7 @@
         Promise.resolve(webkitPlay).then(function(){
           pipOwnerId=currentVideoId;pipActive=true;pipWasPlaying=!pipVideo.paused;
           cmd('pauseVideo');playing=pipWasPlaying;setMediaSessionPlaybackState(pipWasPlaying?'playing':'paused');updatePlayButton();
-        }).catch(function(){if(!silent)hmsg(tr('pipFailed'))});
+        }).catch(function(){if(!pipActive)try{pipVideo.pause()}catch(e){};if(!silent)hmsg(tr('pipFailed'))});
         return true;
       }
       var iosStandalone=isStandaloneApp()&&isIOSWebKitDevice();
@@ -374,12 +374,12 @@
         Promise.all([Promise.resolve(playPromise),Promise.resolve(pipPromise)]).then(function(){
           pipOwnerId=currentVideoId;pipActive=true;pipWasPlaying=!pipVideo.paused;
           cmd('pauseVideo');playing=pipWasPlaying;setMediaSessionPlaybackState(pipWasPlaying?'playing':'paused');updatePlayButton();
-        }).catch(function(){if(!silent)hmsg(tr('pipFailed'))});
+        }).catch(function(){if(!pipActive)try{pipVideo.pause()}catch(e){};if(!silent)hmsg(tr('pipFailed'))});
         return true;
       }
       if(!silent)hmsg(tr('pipUnsupported'));
       return false;
-    }catch(e){if(!silent)hmsg(tr('pipFailed'));return false}
+    }catch(e){if(!pipActive)try{pipVideo.pause()}catch(x){};if(!silent)hmsg(tr('pipFailed'));return false}
   }
   function stopPip(resumeMain){
     var owner=pipOwnerId,position=pipVideo.currentTime||tcur,shouldResume=pipWasPlaying||!pipVideo.paused;
