@@ -332,7 +332,7 @@
       updateMediaSessionMetadata(id,{title:videoTitle||title(id)||tr('video')});
       recommendedVideos=[];recommendedFor='';
       setPipButtonDisabled(true);
-      if(pipActive&&pipOwnerId!==id)stopPip(true);
+      if(pipActive&&pipOwnerId!==id){if(nativeMediaActive)pipOwnerId=id;else stopPip(true)}
       if(pipVideo){try{pipVideo.autoPictureInPicture=true}catch(e){}}
       loadVideoInfo(id).catch(function(){});
       if($('list').classList.contains('open')&&currentTab==='recommendations')loadRecommendations();
