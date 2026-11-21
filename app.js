@@ -1,49 +1,29 @@
 (function(){
   var $=function(i){return document.getElementById(i)};
-  var lang='en',L={
+  var L={
     en:{sub:'Paste a link to start, or search YouTube.',privacy:'Privacy and storage',privacyText:'Your watch history and interests are stored in this browser only. Search terms and requested video IDs are sent to external video search instances. There is no account system or shared server-side history in this version. Anyone using the same browser profile can see that profile’s local history.',searchPh:'Search YouTube...',searchBtn:'Search',orLink:'Or paste a video / playlist link',searching:'Searching YouTube...',loadingSuggest:'Loading suggestions...',noResults:'No videos found.',searchFail:'Search is temporarily unavailable. Try again or paste a link.',paste:'Paste & play',go:'Start',ph:'Paste link here',
       tip:'To open it like an app: on iPhone, tap Share in Safari, then “Add to Home Screen”. On Android, tap ⋮ then “Add to Home screen”.',
       videos:'Videos',playlistTab:'My list',recommendTab:'Recommended',recWait:'Loading recommendations for this video…',recFail:'Could not load recommendations right now.',recEmpty:'No recommendations found for this video.',noCurrent:'Play a video first to see recommendations.',pip:'Picture in picture',pipPreparing:'Preparing picture-in-picture. Wait a moment, then tap again.',pipUnsupported:'Picture-in-picture is not supported by this browser.',pipUnavailable:'Picture-in-picture is unavailable for this video.',pipFailed:'Could not start picture-in-picture. Try again.',audlbl:'Audio only mode',hint:'Swipe up for next • Double-tap left or right to skip',
       back:'Back',fit:'Fill / fit',shuf:'Shuffle',aud2:'Audio only',list:'List',pip:'Picture in picture',clean:'Hide buttons',close:'Close',
       listWait:'The list has not arrived yet. Let the video play a moment, then open it again.',video:'Video',
       rotate:'Turn your phone sideways',normal:'Back to normal',
-      bad:'No valid link found. Paste a video or playlist link.',noclip:'Clipboard unavailable. Paste the link into the box.',clipdeny:'Clipboard access denied. Paste the link manually.'},
-    ar:{sub:'الصق رابطاً للتشغيل أو ابحث في يوتيوب.',privacy:'الخصوصية والتخزين',privacyText:'سجل المشاهدة والاهتمامات محفوظان في هذا المتصفح فقط، وهما غير مشفّرين بواسطة الموقع. يتم إرسال كلمات البحث ومعرّفات الفيديو المطلوبة إلى خدمات بحث فيديو خارجية. لا يوجد في هذه النسخة نظام حسابات أو سجل مشترك على خادم. أي شخص يستخدم ملف المتصفح نفسه يستطيع رؤية السجل المحلي لذلك الملف.',searchPh:'ابحث في يوتيوب...',searchBtn:'بحث',orLink:'أو الصق رابط فيديو / قائمة تشغيل',searching:'جاري البحث في يوتيوب...',loadingSuggest:'جاري تحميل الاقتراحات...',noResults:'ما لقيت فيديوهات.',searchFail:'البحث غير متاح حالياً. جرّب مرة ثانية أو الصق رابطاً.',paste:'لصق وتشغيل',go:'ابدأ',ph:'الصق الرابط هنا',
-      tip:'لتفتحها كأنها تطبيق بشاشة كاملة: على الآيفون من Safari اضغط المشاركة ثم «إضافة إلى الشاشة الرئيسية». وعلى أندرويد اضغط ⋮ ثم «إضافة إلى الشاشة الرئيسية».',
-      videos:'الفيديوهات',playlistTab:'قائمتي',recommendTab:'اقتراحات',recWait:'جاري تحميل اقتراحات هذا الفيديو…',recFail:'تعذر تحميل الاقتراحات حالياً.',recEmpty:'ما لقيت اقتراحات لهذا الفيديو.',noCurrent:'شغّل فيديو أولاً لعرض الاقتراحات.',pip:'صورة داخل صورة',pipPreparing:'جاري تجهيز الصورة المصغّرة. انتظر قليلاً ثم اضغط مرة ثانية.',pipUnsupported:'هذا المتصفح لا يدعم الصورة داخل صورة.',pipUnavailable:'الصورة داخل صورة غير متاحة لهذا الفيديو.',pipFailed:'ما قدرت أشغّل الصورة داخل صورة. جرّب مرة ثانية.',audlbl:'وضع الصوت فقط',hint:'اسحب لفوق للتالي • لمستين للتقديم أو الترجيع',
-      back:'رجوع',fit:'ملء أو احتواء',shuf:'عشوائي',aud2:'صوت فقط',list:'القائمة',pip:'صورة داخل صورة',clean:'إخفاء الأزرار',close:'إغلاق',
-      listWait:'القائمة لسا ما وصلت. شغّل الفيديو شوي وافتحها مرة ثانية.',video:'فيديو',
-      rotate:'دوّر التلفون على الجنب',normal:'رجعت للوضع العادي',
-      bad:'ما لقيت رابط صالح. الصق رابط فيديو أو بلاي ليست.',noclip:'الحافظة غير متاحة، الصق الرابط يدوياً بالمربع.',clipdeny:'ما انسمح بالوصول للحافظة، الصق الرابط يدوياً.'}
+      bad:'No valid link found. Paste a video or playlist link.',noclip:'Clipboard unavailable. Paste the link into the box.',clipdeny:'Clipboard access denied. Paste the link manually.'}
   };
-  function tr(k){return L[lang][k]}
+  function tr(k){return L.en[k]}
   Object.assign(L.en,{searchPh:'Search…',searching:'Searching…',ph:'Paste a video or playlist link',paste:'Paste',go:'Play',
     forYou:'For you',popular:'Popular picks',recent:'Recently watched',feedHint:'Watch a few videos and this page will learn what you like.',
     feedFail:'Could not load videos right now.',retry:'Try again',views:'views',results:'Results',clearHist:'Clear my history',
     clearAsk:'Clear your watch history on this device?',historyMore:'Show more',historyLess:'Show less',install:'Install as an app',refresh:'Refresh',
     loadingMore:'Loading more videos…',
-    play:'Play',pause:'Pause',playerLoading:'Loading video…',playerTap:'Video is ready. Tap Play if it does not start.',playerError:'YouTube could not play this video. Try another video.'});
-  Object.assign(L.ar,{searchPh:'ابحث…',searching:'جاري البحث…',ph:'الصق رابط فيديو أو قائمة تشغيل',paste:'لصق',go:'تشغيل',
-    forYou:'لأجلك',popular:'مقترحات رائجة',recent:'شو شاهدت مؤخراً',feedHint:'شاهد بعض الفيديوهات وهاي الصفحة بتتعلم شو بتحب.',
-    feedFail:'ما قدرت أحمّل الفيديوهات هلأ.',retry:'جرّب مرة ثانية',views:'مشاهدة',results:'النتائج',clearHist:'مسح سجلّي',
-    clearAsk:'مسح سجل المشاهدة من هالجهاز؟',historyMore:'عرض المزيد',historyLess:'عرض أقل',install:'تثبيته كتطبيق',refresh:'تحديث',
-    loadingMore:'جاري تحميل فيديوهات إضافية…',
-    play:'تشغيل',pause:'إيقاف مؤقت',playerLoading:'جاري تحميل الفيديو…',playerTap:'الفيديو جاهز. اضغط تشغيل إذا ما بدأ لحاله.',playerError:'تعذّر تشغيل هذا الفيديو من يوتيوب. جرّب فيديو آخر.'});
-  function setLang(l){
-    lang=l;var h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
-    document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=tr(e.dataset.t)});
-    document.querySelectorAll('[data-a]').forEach(function(e){e.setAttribute('aria-label',tr(e.dataset.a))});
-    $('url').placeholder=tr('ph');$('searchInput').placeholder=tr('searchPh');$('searchInput').setAttribute('aria-label',tr('searchPh'));$('lang').textContent=l==='en'?'العربية':'English';
-    applyHomeLang();
-  }
+    play:'Play',pause:'Pause',playerLoading:'Loading video…',playerTap:'Video is ready. Tap Play if it does not start.',playerError:'YouTube could not play this video. Try another video.',removeHistory:'Remove from watch history',autoplayOn:'Turn autoplay on',autoplayOff:'Turn autoplay off',autoplayEnabled:'Autoplay on',autoplayDisabled:'Autoplay off'});
   var yt=$('yt'),slide=$('slide'),stage=$('stage'),flash=$('flash');
-  var playing=true,shuffle=false,fill=false,busy=false,viewMode=0;
+  var playing=true,shuffle=false,fill=false,busy=false,viewMode=0,autoplayEnabled=ls('autoplay')!=='0';
   var ids=[],cur=-1,T={},io=null,q=[],active=0;
   var playlistIds=[],originalPlaylistId=null,preserveSavedPlaylist=false;
   var customQueueActive=false,customQueueIds=[],customQueueIndex=-1,currentDurationHint=0;
   var customAdvanceTimer=0,lastAutoAdvanceId='';
   var currentVideoId='',currentTab='playlist',recommendedVideos=[],recommendedFor='',recommendationSeq=0;
-  var historyExpanded=false,HISTORY_LIMIT=500,HISTORY_PREVIEW=3;
+  var historyExpanded=false,HISTORY_LIMIT=500,HISTORY_PREVIEW=3,historySuppressedId='';
   var videoInfoCache=Object.create(null),videoInfoRequests=Object.create(null),videoInfoCacheOrder=[];
   function rememberVideoInfo(id,data){
     if(videoInfoCache[id])videoInfoCacheOrder=videoInfoCacheOrder.filter(function(x){return x!==id});
@@ -104,6 +84,13 @@
     var b=$('b-toggle');if(!b)return;
     b.dataset.a=playing?'pause':'play';b.setAttribute('aria-label',tr(playing?'pause':'play'));
     b.innerHTML=playing?IC_PAUSE:IC_PLAY;
+  }
+  function updateAutoplayButton(){
+    var b=$('b-autoplay');if(!b)return;
+    var label=tr(autoplayEnabled?'autoplayOff':'autoplayOn');
+    b.classList.toggle('on',autoplayEnabled);
+    b.setAttribute('aria-pressed',autoplayEnabled?'true':'false');
+    b.setAttribute('aria-label',label);b.title=label;
   }
   function storyboardAt(id,seconds){
     var data=videoInfoCache[id],boards=data&&Array.isArray(data.storyboards)?data.storyboards:[];
@@ -273,7 +260,7 @@
       return Promise.resolve(videoInfoCache[id]);
     }
     if(videoInfoRequests[id])return videoInfoRequests[id];
-    var url='/api/v1/videos/'+encodeURIComponent(id)+'?hl='+(lang==='ar'?'ar':'en')+'&region=JO';
+    var url='/api/v1/videos/'+encodeURIComponent(id)+'?hl='+('en')+'&region=JO';
     var req=apiGet(url,false,function(data){return !!(data&&validVideoId(data.videoId))}).then(function(data){
       rememberVideoInfo(id,data);
       if(id===currentVideoId){applyDurationFallback(id,data);preparePipSource(id,data);if(currentTab==='recommendations')renderRecommendations(id,data)}
@@ -301,6 +288,7 @@
     currentVideoId=id;
     if(videoTitle)saveTitle(id,videoTitle);
     if(changed){
+      historySuppressedId='';
       var wasPlaying=playerHasStarted&&playing;
       dur=0;tcur=0;lastSec=-1;progressClockRunning=wasPlaying;lastClockAt=Date.now();lastRemoteTimeAt=lastClockAt;
       lastAutoAdvanceId='';
@@ -427,7 +415,7 @@
   }
   function loadSearchPage(page,seq,append){
     if(searchLoading||!searchHasMore)return;searchLoading=true;setMoreLoading('results',true);
-    var language=lang==='ar'?'ar':'en';
+    var language='en';
     apiGet('/api/v1/search?q='+encodeURIComponent(currentSearchQuery)+'&type=video&page='+page+'&region=JO&hl='+language,true).then(function(data){
       if(seq!==searchSeq)return;
       var videos=Array.isArray(data)?data.filter(isSearchVideo):[];
@@ -469,14 +457,13 @@
 
 
   // ---------- Home: cards, history and recommendations ----------
-  var TOPICS={en:[['Quran','Quran recitation'],['Music','Music'],['Gaming','Gaming'],['News','News'],['Sports','Sports'],['Cooking','Cooking'],['Tech','Tech'],['Comedy','Comedy']],
-    ar:[['قرآن','قرآن كريم'],['أغاني','أغاني'],['ألعاب','ألعاب'],['أخبار','أخبار'],['رياضة','رياضة'],['طبخ','طبخ'],['تقنية','تقنية'],['كوميديا','كوميديا']]};
+  var TOPICS=[['Quran','Quran recitation'],['Music','Music'],['Gaming','Gaming'],['News','News'],['Sports','Sports'],['Cooking','Cooking'],['Tech','Tech'],['Comedy','Comedy']];
   var FEED_N=36,feedSeq=0,lastFeed=null,histTimer=0,activeChip='home',
     feedPlan=[],feedPage=1,feedLoading=false,feedHasMore=true,feedSeen=Object.create(null),feedCursor=0,
     searchItems=[],searchPage=1,searchLoading=false,searchHasMore=true,currentSearchQuery='',
     browseItems=[],browseScrollY=0,browseView='feed',browseQuery='',moreObserver=null,
     historySaveAt=0,historyEpoch=0,pendingResumeId='',pendingResumeAt=0;
-  var STOP={};('official video videos channel subscribe youtube the and for with from this that you your new full episode part live الفيديو فيديو القناة').split(' ').forEach(function(w){STOP[w]=1});
+  var STOP={};('official video videos channel subscribe youtube the and for with from this that you your new full episode part live').split(' ').forEach(function(w){STOP[w]=1});
   var WSPLIT;try{WSPLIT=new RegExp('[^\\p{L}\\p{N}]+','u')}catch(e){WSPLIT=/[^a-z0-9\u0600-\u06ff]+/}
   function validVideoId(id){return typeof id==='string'&&/^[A-Za-z0-9_-]{11}$/.test(id)}
   function isSearchVideo(v){
@@ -486,7 +473,7 @@
   }
   function normItem(v){return {id:v.videoId,t:String(v.title||'').slice(0,300),a:String(v.author||'').slice(0,120),v:+v.viewCount||0,l:+v.lengthSeconds||0,p:String(v.publishedText||'').slice(0,100)}}
   function durText(s){s=+s||0;if(!s)return '';var h=Math.floor(s/3600),m=Math.floor(s%3600/60),r=s%60;return (h?h+':'+('0'+m).slice(-2):m)+':'+('0'+r).slice(-2)}
-  function viewsText(n){n=+n;if(!n)return '';var x;try{x=new Intl.NumberFormat(lang==='ar'?'ar':'en',{notation:'compact',maximumFractionDigits:1}).format(n)}catch(e){x=n.toLocaleString()}return x+' '+tr('views')}
+  function viewsText(n){n=+n;if(!n)return '';var x;try{x=new Intl.NumberFormat('en',{notation:'compact',maximumFractionDigits:1}).format(n)}catch(e){x=n.toLocaleString()}return x+' '+tr('views')}
   function makeCard(it,i,list){
     var b=document.createElement('button');b.type='button';b.className='vcard';b.dataset.videoId=it.id;
     var th=document.createElement('span');th.className='thumb';
@@ -520,10 +507,10 @@
   // watch history (stored only on this device)
   function getHist(){try{var a=JSON.parse(ls('hist')||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
   function recordHistory(id){
-    if(!id)return Promise.resolve();
+    if(!id||historySuppressedId===id)return Promise.resolve();
     var epoch=historyEpoch,wasCurrent=id===currentVideoId,position=wasCurrent?Math.floor(tcur||0):0,knownDuration=wasCurrent?Math.floor(dur||0):0;
     function add(d){
-      if(epoch!==historyEpoch)return;
+      if(epoch!==historyEpoch||historySuppressedId===id)return;
       var h=getHist(),old=null;
       h=h.filter(function(e){if(e.i===id){old=e;return false}return true});
       var keywords=((d&&Array.isArray(d.keywords)&&d.keywords.length?d.keywords:(old&&old.k))||[]).slice(0,8).map(function(x){return String(x).slice(0,80)});
@@ -565,22 +552,33 @@
     }
     var frag=document.createDocumentFragment();
     h.forEach(function(e){
-      var b=document.createElement('button');b.type='button';b.className='history-card';b.dataset.videoId=e.i;
+      var card=document.createElement('div');card.className='history-card';
+      var b=document.createElement('button');b.type='button';b.className='history-play';b.dataset.videoId=e.i;
       var im=document.createElement('img');im.loading='lazy';im.decoding='async';im.alt='';im.src='https://i.ytimg.com/vi/'+encodeURIComponent(e.i)+'/mqdefault.jpg';
       var copy=document.createElement('span');copy.className='history-copy';
       var titleEl=document.createElement('b');titleEl.textContent=e.t||title(e.i)||tr('video');
       var meta=document.createElement('small');meta.textContent=[e.a,e.p?fmt(e.p):'',e.ts?new Date(e.ts).toLocaleDateString(): ''].filter(Boolean).join(' • ');
       var progress=document.createElement('span');progress.className='history-progress';
       var fillEl=document.createElement('span'),pct=e.l>0?Math.max(0,Math.min(100,(e.p||0)/e.l*100)):0;fillEl.style.width=pct+'%';progress.appendChild(fillEl);
-      copy.appendChild(titleEl);copy.appendChild(meta);copy.appendChild(progress);
-      b.appendChild(im);b.appendChild(copy);
+      copy.appendChild(titleEl);copy.appendChild(meta);copy.appendChild(progress);b.appendChild(im);b.appendChild(copy);
       b.addEventListener('click',function(){
         saveBrowseState();pendingResumeId=e.i;pendingResumeAt=Math.max(0,+e.p||0);
         start({list:null,vids:[e.i],durationHint:+e.l||0});
       });
-      frag.appendChild(b);
+      var remove=document.createElement('button');remove.type='button';remove.className='history-remove';
+      remove.setAttribute('aria-label',tr('removeHistory'));remove.title=tr('removeHistory');
+      remove.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/></svg>';
+      remove.addEventListener('click',function(event){event.preventDefault();event.stopPropagation();removeHistoryItem(e.i)});
+      card.appendChild(b);card.appendChild(remove);frag.appendChild(card);
     });
     box.appendChild(frag);
+  }
+  function removeHistoryItem(id){
+    if(!validVideoId(id))return;
+    if(id===currentVideoId){historySuppressedId=id;clearTimeout(histTimer)}
+    var remaining=getHist().filter(function(item){return item.i!==id});
+    ls('hist',JSON.stringify(remaining.slice(0,HISTORY_LIMIT)));
+    drawHistory();
   }
   // interest clusters: videos that share keywords / channel are one topic
   function wordsOf(s){return (s||'').toLowerCase().split(WSPLIT).filter(function(w){return w.length>=3&&!STOP[w]})}
@@ -601,7 +599,7 @@
     return cl;
   }
   function relatedOf(id){
-    var tail='hl='+(lang==='ar'?'ar':'en')+'&region=JO',base='/api/v1/videos/'+encodeURIComponent(id);
+    var tail='hl='+('en')+'&region=JO',base='/api/v1/videos/'+encodeURIComponent(id);
     function pick(d){var a=d&&d.recommendedVideos;return Array.isArray(a)?a.filter(function(v){return v&&validVideoId(v.videoId)&&v.title}).map(normItem):[]}
     if(videoInfoCache[id]){var c=pick(videoInfoCache[id]);if(c.length)return Promise.resolve(c)}
     function full(){return apiGet(base+'?'+tail).then(pick)}
@@ -609,14 +607,14 @@
   }
   function searchQ(q,page){
     page=Math.max(1,+page||1);
-    return apiGet('/api/v1/search?q='+encodeURIComponent(q)+'&type=video&page='+page+'&region=JO&hl='+(lang==='ar'?'ar':'en'),true).then(function(d){
+    return apiGet('/api/v1/search?q='+encodeURIComponent(q)+'&type=video&page='+page+'&region=JO&hl='+('en'),true).then(function(d){
       return (Array.isArray(d)?d:[]).filter(isSearchVideo).map(normItem);
     });
   }
   function planFor(h,rotation){
     rotation=Math.max(1,+rotation||1);
     if(!h.length){
-      var topics=TOPICS[lang].slice(),shift=(rotation-1)%topics.length;
+      var topics=TOPICS.slice(),shift=(rotation-1)%topics.length;
       topics=topics.slice(shift).concat(topics.slice(0,shift));
       return topics.slice(0,4).map(function(t){return {slots:Math.round(FEED_N/4),q:t[1]}});
     }
@@ -651,7 +649,7 @@
     return out;
   }
   function readFeed(){try{var f=JSON.parse(ls('feed')||'null');return f&&Array.isArray(f.items)?f:null}catch(e){return null}}
-  function feedSig(h){return h.slice(0,10).map(function(e){return e.i}).join(',')+'|'+lang}
+  function feedSig(h){return h.slice(0,10).map(function(e){return e.i}).join(',')+'|en'}
   function drawFeed(items){
     lastFeed=items.slice();browseItems=lastFeed;feedSeen=Object.create(null);
     var f=$('feed'),frag=document.createDocumentFragment();f.textContent='';
@@ -711,7 +709,7 @@
   }
   function renderChips(){
     var n=$('chips');n.textContent='';
-    var all=[['home',tr('forYou'),'']].concat(TOPICS[lang].map(function(t){return [t[0],t[0],t[1]]}));
+    var all=[['home',tr('forYou'),'']].concat(TOPICS.map(function(t){return [t[0],t[0],t[1]]}));
     all.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='chip';b.dataset.k=t[0];b.dataset.q=t[2];b.textContent=t[1];n.appendChild(b)});
     markChip();
   }
@@ -719,7 +717,6 @@
     var on=$('resultsWrap').hidden?'home':activeChip;
     $('chips').querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c.dataset.k===on)});
   }
-  function applyHomeLang(){renderChips();if(lastFeed)drawFeed(lastFeed);else $('feedTitle').textContent=tr('forYou');drawHistory()}
   $('chips').addEventListener('click',function(e){
     var b=e.target.closest('.chip');if(!b)return;
     if(b.dataset.k==='home'){$('searchInput').value='';showResults(false)}
@@ -896,12 +893,17 @@
       }
       if(!customQueueActive&&typeof inf.playlistIndex==='number'&&inf.playlistIndex!==cur)setCur(inf.playlistIndex);
     }
-    if(s===0&&playerHasStarted&&customQueueActive&&customQueueIds.length>1&&currentVideoId&&!requestedStartId&&lastAutoAdvanceId!==currentVideoId){
+    if(s===1)lastAutoAdvanceId='';
+    if(s===0&&playerHasStarted&&currentVideoId&&!requestedStartId&&lastAutoAdvanceId!==currentVideoId){
       var endedId=currentVideoId,endedToken=playerLoadToken;
       lastAutoAdvanceId=endedId;clearTimeout(customAdvanceTimer);
-      customAdvanceTimer=setTimeout(function(){
-        if(endedToken===playerLoadToken&&currentVideoId===endedId&&!playing&&!requestedStartId)go(1);
-      },320);
+      if(!autoplayEnabled){
+        cmd('seekTo',[0,true]);cmd('playVideo');
+      }else if(customQueueActive&&customQueueIds.length>1){
+        customAdvanceTimer=setTimeout(function(){
+          if(endedToken===playerLoadToken&&currentVideoId===endedId&&!playing&&!requestedStartId)go(1);
+        },320);
+      }
     }
   });
   var IC_PAUSE='<svg viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></svg>',IC_PLAY='<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="#fff"/></svg>';
@@ -924,6 +926,7 @@
   }
   function fs(on){try{var d=document,e=d.documentElement;if(on){if(!d.fullscreenElement&&e.requestFullscreen){var r=e.requestFullscreen({navigationUI:'hide'});if(r&&r.catch)r.catch(function(){});return r}}else if(d.fullscreenElement&&d.exitFullscreen)d.exitFullscreen()}catch(x){}}
   function start(p,keepSavedPlaylist){
+    historySuppressedId='';
     if(!p||(!p.list&&(!Array.isArray(p.vids)||!p.vids.some(validVideoId))))return;
     if(!p.list)p.vids=p.vids.filter(validVideoId);
     if(!p.list&&!p.vids.length)return;
@@ -1060,6 +1063,8 @@
   $('b-toggle').onclick=toggle;
   $('b-back').onclick=stop;
   $('b-fit').onclick=function(){applyVideoMode(viewMode+1)};
+  $('b-autoplay').onclick=function(){autoplayEnabled=!autoplayEnabled;ls('autoplay',autoplayEnabled?'1':'0');updateAutoplayButton();hmsg(tr(autoplayEnabled?'autoplayEnabled':'autoplayDisabled'))};
+  updateAutoplayButton();
   $('b-shuf').onclick=function(){
     shuffle=!shuffle;this.classList.toggle('on',shuffle);
     if(!customQueueActive)cmd('setShuffle',[shuffle]);
@@ -1115,7 +1120,6 @@
   $('tabPlaylist').onclick=function(){switchListTab('playlist')};
   $('tabRecommendations').onclick=function(){switchListTab('recommendations')};
   $('lclose').onclick=closeList;
-  $('lang').onclick=function(){setLang(lang==='en'?'ar':'en')};
   var trk=$('trk');
   function tpos(e){var r=trk.getBoundingClientRect();var u=rot()?(e.clientY-r.top)/Math.max(1,r.height):(e.clientX-r.left)/Math.max(1,r.width);return Math.max(0,Math.min(1,u))*dur}
   trk.addEventListener('pointerdown',function(e){
@@ -1171,4 +1175,4 @@
   });
 })();
 
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=13',{updateViaCache:'none'}).catch(function(){})
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=14',{updateViaCache:'none'}).catch(function(){})
