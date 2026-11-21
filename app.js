@@ -1043,7 +1043,7 @@
   });
   t.addEventListener('pointercancel',function(){gestureStart=null});
   $('ui').addEventListener('click',function(e){if(e.target.closest('button')&&e.target.id!=='b-back')revealControls()});
-  $('controlsDock').addEventListener('click',function(e){if(e.target.closest('button'))revealControls()});
+  $('controlsDock').addEventListener('click',function(e){if(e.target.closest('button'))revealControls();else if(!e.target.closest('#trk'))tap(rot()?e.clientY:e.clientX)});
   $('b-toggle').onclick=toggle;
   $('b-back').onclick=stop;
   $('b-fit').onclick=function(){applyVideoMode(viewMode+1)};
