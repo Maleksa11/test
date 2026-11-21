@@ -4,7 +4,7 @@
     en:{sub:'Paste a link to start, or search YouTube.',privacy:'Privacy and storage',privacyText:'Your watch history and interests are stored in this browser only. Search terms and requested video IDs are sent to external video search instances. There is no account system or shared server-side history in this version. Anyone using the same browser profile can see that profile’s local history.',searchPh:'Search YouTube...',searchBtn:'Search',orLink:'Or paste a video / playlist link',searching:'Searching YouTube...',loadingSuggest:'Loading suggestions...',noResults:'No videos found.',searchFail:'Search is temporarily unavailable. Try again or paste a link.',paste:'Paste & play',go:'Start',ph:'Paste link here',
       tip:'To open it like an app: on iPhone, tap Share in Safari, then “Add to Home Screen”. On Android, tap ⋮ then “Add to Home screen”.',
       videos:'Videos',playlistTab:'My list',recommendTab:'Recommended',recWait:'Loading recommendations for this video…',recFail:'Could not load recommendations right now.',recEmpty:'No recommendations found for this video.',noCurrent:'Play a video first to see recommendations.',pip:'Picture in picture',pipPreparing:'Preparing picture-in-picture. Wait a moment, then tap again.',pipUnsupported:'Picture-in-picture is not supported by this browser.',pipUnavailable:'Picture-in-picture is unavailable for this video.',pipFailed:'Could not start picture-in-picture. Try again.',audlbl:'Audio only mode',hint:'Swipe up for next • Double-tap left or right to skip',
-      back:'Back',fit:'Fill / fit',shuf:'Shuffle',aud2:'Audio only',list:'List',pip:'Picture in picture',clean:'Hide buttons',close:'Close',
+      back:'Back',fit:'Fill / fit',aud2:'Audio only',list:'List',pip:'Picture in picture',clean:'Hide buttons',close:'Close',
       listWait:'The list has not arrived yet. Let the video play a moment, then open it again.',video:'Video',
       rotate:'Turn your phone sideways',normal:'Back to normal',
       bad:'No valid link found. Paste a video or playlist link.',noclip:'Clipboard unavailable. Paste the link into the box.',clipdeny:'Clipboard access denied. Paste the link manually.'}
@@ -17,7 +17,7 @@
     loadingMore:'Loading more videos…',
     play:'Play',pause:'Pause',playerLoading:'Loading video…',playerTap:'Video is ready. Tap Play if it does not start.',playerError:'YouTube could not play this video. Try another video.',removeHistory:'Remove from watch history',autoplayOn:'Turn autoplay on',autoplayOff:'Turn autoplay off',autoplayEnabled:'Autoplay on',autoplayDisabled:'Autoplay off'});
   var yt=$('yt'),slide=$('slide'),stage=$('stage'),flash=$('flash');
-  var playing=true,shuffle=false,fill=false,busy=false,viewMode=0,autoplayEnabled=ls('autoplay')!=='0';
+  var playing=true,fill=false,busy=false,viewMode=0,autoplayEnabled=ls('autoplay')!=='0';
   var ids=[],cur=-1,T={},io=null,q=[],active=0;
   var playlistIds=[],originalPlaylistId=null,preserveSavedPlaylist=false;
   var customQueueActive=false,customQueueIds=[],customQueueIndex=-1,currentDurationHint=0;
@@ -1065,10 +1065,7 @@
     var total=customQueueIds.length,index=customQueueIds.indexOf(currentVideoId);
     if(index<0)index=Math.max(0,Math.min(total-1,customQueueIndex));
     var nextIndex;
-    if(shuffle&&dir>0&&total>1){
-      nextIndex=Math.floor(Math.random()*(total-1));
-      if(nextIndex>=index)nextIndex++;
-    }else nextIndex=(index+dir+total)%total;
+    nextIndex=(index+dir+total)%total;
     var target=customQueueIds[nextIndex];
     if(!validVideoId(target))return false;
     customQueueIndex=nextIndex;cur=nextIndex;
@@ -1132,12 +1129,6 @@
   $('b-fit').onclick=function(){applyVideoMode(viewMode+1)};
   $('b-autoplay').onclick=function(){autoplayEnabled=!autoplayEnabled;ls('autoplay',autoplayEnabled?'1':'0');updateAutoplayButton();hmsg(tr(autoplayEnabled?'autoplayEnabled':'autoplayDisabled'))};
   updateAutoplayButton();
-  $('b-shuf').onclick=function(){
-    shuffle=!shuffle;this.classList.toggle('on',shuffle);
-    if(!customQueueActive)cmd('setShuffle',[shuffle]);
-    ls('shuf',shuffle?'1':'0');
-    if(shuffle)go(1);
-  };
   function run(txt){
     txt=String(txt||'').slice(0,2048);$('url').value=txt;
     var p=parse(txt);
@@ -1181,7 +1172,6 @@
   var qm=location.search.match(/[?&]u=(.*)$/);
   fill=false;viewMode=0;slide.className='fit';ls('fill','0');
   if(qm){var qu=qm[1];try{qu=decodeURIComponent(qu)}catch(e){}$('url').value=qu;run(qu)}
-  if(ls('shuf')==='1'){shuffle=true;$('b-shuf').classList.add('on')}
   $('b-aud').onclick=function(){var on=stage.classList.toggle('aud');this.classList.toggle('on',on);ls('aud',on?'1':'0');if(on)cmd('setPlaybackQuality',['tiny'])};
   if(ls('aud')==='1'){stage.classList.add('aud');$('b-aud').classList.add('on')}
   $('b-list').onclick=function(){switchListTab('playlist');$('list').classList.add('open');var c=$('rows').querySelector('.cur');if(c)c.scrollIntoView({block:'center'})};
@@ -1243,4 +1233,4 @@
   });
 })();
 
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=17',{updateViaCache:'none'}).catch(function(){})
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=18',{updateViaCache:'none'}).catch(function(){})

@@ -67,3 +67,9 @@ Serve the repository over HTTPS (for example, GitHub Pages). The manifest and se
 - The app still stores history and preferences in browser local storage without encryption. Anyone able to use or inspect the same browser profile/device may see them. Search suggestions, search terms, recommendation queries, and video IDs are sent to public third-party providers; YouTube also receives playback requests. This static app has no account system or private server-side storage.
 - The policy is delivered as a CSP meta element. Meta-delivered CSP cannot enforce `frame-ancestors`; response-header protections such as `X-Frame-Options`, `X-Content-Type-Options`, and `Permissions-Policy` must be configured by a hosting layer that supports custom response headers. This repository-only code change cannot guarantee those host-level headers.
 - This is a conservative source hardening pass, not a formal penetration test. No browser/device test or third-party infrastructure audit is implied.
+
+
+## Player controls update (November 21, 2026)
+
+- Removed the Shuffle control and its random queue behavior. App-managed playback queues now advance in their original order. The Autoplay toggle and playlist/list control remain unchanged.
+- The app shell and service worker cache were advanced to v18.
