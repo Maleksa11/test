@@ -151,6 +151,10 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 #histClear{border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:8px 11px;font:inherit;font-size:12px;font-weight:650;white-space:nowrap;min-height:36px}
 .secActions{display:flex;align-items:center;gap:8px;flex:none}
 #history{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:8px 12px;margin:0 0 12px}
+.history-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:7px 12px;border:1px solid var(--bd);border-radius:999px;background:var(--card);color:var(--fg);font:inherit;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}
+.history-toggle::after{content:"⌄";font-size:17px;line-height:1}
+.history-toggle.expanded::after{content:"⌃"}
+.history-toggle[hidden]{display:none}
 .history-card{display:flex;align-items:center;gap:10px;min-width:0;width:100%;padding:8px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--fg);font:inherit;text-align:start}
 .history-card img{width:104px;height:59px;object-fit:cover;border-radius:8px;background:var(--bg);flex:none}
 .history-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
@@ -191,7 +195,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   <div id="searchStatus" class="note" role="status" aria-live="polite"></div>
   <nav id="chips" aria-label="Topics"></nav>
   <section id="historyWrap" hidden>
-    <div class="sec"><h2 data-t="recent">Recently watched</h2></div>
+    <div class="sec"><h2 data-t="recent">Recently watched</h2><button id="historyToggle" class="history-toggle" type="button" aria-expanded="false" hidden>Show more</button></div>
     <div id="history" aria-label="Recently watched"></div>
   </section>
   <section id="feedWrap">
@@ -253,6 +257,6 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 
 
 
-<script src="./app.js?v=11" defer></script>
+<script src="./app.js?v=12" defer></script>
 </body>
 </html>
