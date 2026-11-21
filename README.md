@@ -5,8 +5,8 @@ A lightweight, client-side YouTube search and player.
 ## Current architecture
 
 - Static frontend; no application server, account system, or shared user database is configured.
-- Watch history, playback position, cached titles, and recommendation preferences are stored in the visitor's browser storage under a versioned namespace. This browser storage is not encrypted by the app.
-- The browser retains at most 60 history entries and 150 cached video titles. Clearing history also removes the app's saved title metadata and cached feed. Video files are not saved by the app; thumbnails are loaded from YouTube's image CDN.
+- Watch history (up to 500 entries), playback position, cached titles, autoplay preference, and recommendation preferences are stored in the visitor's browser storage under a versioned namespace. This browser storage is not encrypted by the app.
+- The browser retains at most 500 history entries and 150 cached video titles. Clearing history also removes the app's saved title metadata and cached feed. Video files are not saved by the app; thumbnails are loaded from YouTube's image CDN.
 - Searches and video metadata requests go to the public Invidious instances listed in `index.html`. Those services can observe the request and the visitor's IP address. The app does not send the complete watch-history list to them, but search terms derived from watched videos can be sent to build recommendations.
 - The service worker caches only the app shell for offline opening. It does not cache search responses, video streams, watch history, or user-specific API responses.
 
@@ -30,6 +30,8 @@ Serve the repository over HTTPS (for example, GitHub Pages). The manifest and se
 - Search and For You show an animated loading indicator while additional result pages are being fetched.
 - Search, For You, and history selections load the clicked video ID directly as a single-video embed. The app manages the follow-up queue itself with explicit `loadVideoById` calls, so the clicked card, actual YouTube video, timeline, and watch history stay tied to the same confirmed video ID. Original YouTube playlist URLs continue to use YouTube's native playlist player.
 - The player list also loads the exact selected video ID; it no longer asks YouTube to infer the clicked position from a separate result queue.
+- Watch-history cards include a per-video remove control; history expands beyond its three-item preview up to 500 locally stored entries.
+- The Autoplay control is enabled by default and remembers its setting on this device. When enabled, app-managed queues advance to the next video; when disabled, the current video is replayed.
 - Tapping the video picture no longer pauses playback. The central play/pause button is the playback toggle; double-tapping the left or right side still seeks ten seconds.
 - The timeline has a drag/hover preview when the metadata endpoint returns YouTube storyboard sheets; where no sheet is available, the time bubble still appears. Some videos or public API instances may not provide usable storyboard data, so thumbnail preview availability is not guaranteed for every video.
 - Background and browser-triggered picture-in-picture remain best-effort and browser-dependent. There is no visible in-player PiP button. A web page cannot force PiP on every phone/browser, and background PiP may require browser permission or a native app wrapper.
