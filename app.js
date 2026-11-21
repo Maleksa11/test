@@ -1023,7 +1023,6 @@
       currentDurationHint=+((data&&data.lengthSeconds)||currentDurationHint)||0;
       setCurrentVideo(id,data&&data.title||title(id)||tr('video'));attachNativeVideo();
       pipSourceLoadingId=id;pipPreparedId=id;pipVideo.loop=!autoplayEnabled||!customQueueActive||customQueueIds.length<=1;pipVideo.preload='auto';
-      try{pipVideo.crossOrigin='anonymous'}catch(e){}
       if(pipVideo.src!==stream.url){pipVideo.src=stream.url;pipVideo.load()}else if(pipVideo.readyState>=1)nativeVideoMetadataReady();
       function begin(){
         if(token!==playerLoadToken||!nativeMediaActive||nativeMediaToken!==token)return;
