@@ -9,7 +9,6 @@ A lightweight, client-side YouTube search and player.
 - The browser retains at most 500 history entries and 150 cached video titles. Clearing history also removes the app's saved title metadata and cached feed. Video files are not saved by the app; thumbnails are loaded from YouTube's image CDN.
 - Searches and video metadata requests go to the public Invidious instances listed in `index.html`. Those services can observe the request and the visitor's IP address. The app does not send the complete watch-history list to them, but search terms derived from watched videos can be sent to build recommendations.
 - The service worker caches only the app shell for offline opening. It does not cache search responses, video streams, watch history, or user-specific API responses.
-- Where supported, the app publishes Media Session metadata, lock-screen transport actions, playback position, and requests the `playback` audio-session type on Safari/WebKit.
 
 ## Privacy boundary
 
@@ -35,7 +34,7 @@ Serve the repository over HTTPS (for example, GitHub Pages). The manifest and se
 - The Autoplay control is enabled by default and remembers its setting on this device. When enabled, app-managed queues advance to the next video; when disabled, the current video is replayed.
 - Tapping the video picture no longer pauses playback. The central play/pause button is the playback toggle; double-tapping the left or right side still seeks ten seconds.
 - The timeline has a drag/hover preview when the metadata endpoint returns YouTube storyboard sheets; where no sheet is available, the time bubble still appears. Some videos or public API instances may not provide usable storyboard data, so thumbnail preview availability is not guaranteed for every video.
-- On iOS and Android phones, custom queues now try a top-level HTML5 video element using direct MP4 streams from the Invidious metadata endpoint. Unsupported streams fall back to the YouTube iframe. This gives the browser a top-frame media element for native controls and browser-initiated PiP where available; background playback remains subject to OS/browser limits. There is no visible in-player PiP button. The app tries standard and WebKit PiP paths and requests automatic PiP when the page is backgrounded. The mobile media engine supplies a top-level video element for supported streams. iOS Home Screen PWAs have a WebKit limitation where PiP can remain unavailable even when Safari supports it; web pages cannot add native iOS Background Modes or configure AVAudioSession entitlements. Guaranteed iOS background playback and PiP require a native iOS wrapper/app. Browser-initiated automatic PiP is also browser-version and permission dependent and is not guaranteed on Android.
+- Background and browser-triggered picture-in-picture remain best-effort and browser-dependent. There is no visible in-player PiP button. A web page cannot force PiP on every phone/browser, and background PiP may require browser permission or a native app wrapper.
 
 
 ## Playback startup recovery (November 20, 2026)
