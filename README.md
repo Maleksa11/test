@@ -18,12 +18,23 @@ Data is separate between different browser profiles and devices because it is st
 
 Serve the repository over HTTPS (for example, GitHub Pages). The manifest and service worker require a secure context for installation/offline support. A service-worker update may take a browser reload to activate.
 
-## Security notes
+## Security and privacy review
 
-- No API keys, passwords, or private credentials are embedded in this static frontend.
-- The page uses a restrictive Content Security Policy, a no-referrer policy, strict YouTube player message-origin checks, and text-only insertion for external titles and search suggestions.
-- This is a client-side hardening pass, not a formal security audit. Review hosting response headers, dependency/supply-chain changes, and any future backend before collecting accounts or private data.
+- The current release is a static, client-side site. It has no login, application server, private API keys, or shared user database. Do not treat it as an account-based private service.
+- Watch history, playback position, saved titles, and preferences are stored in browser local storage. They are not encrypted by this app and are visible to anyone who can use the same browser profile or inspect that device. Clearing the app's history removes its local history and saved title/feed data; it cannot erase logs held by external providers or YouTube account activity.
+- Search phrases, suggestion requests, video IDs, and video metadata requests are sent to public Invidious instances listed in `index.html`. Those providers can receive the visitor's IP address and the query/video ID. The app sends API requests without browser credentials and with a no-referrer policy, but it cannot guarantee how third-party operators retain or use their logs.
+- Playback is provided by the YouTube embedded player. YouTube processes the playback request under its own privacy terms and browser cookie/account settings. Malek Tube does not receive a user's Google password or YouTube login credentials.
+- The page applies a restrictive Content Security Policy, a no-referrer policy, HTTPS-only allowlisted API/media origins, YouTube player message source/origin checks, video-ID validation, and text-only insertion for external titles and search suggestions. There are no third-party JavaScript libraries loaded by the page.
+- The service worker caches only the app shell; it does not cache API responses, video streams, watch history, or personalized data.
+- Static source review found no obvious critical client-side injection issue in the reviewed paths. This is not a penetration test or a formal security audit. GitHub Pages does not let this repository set arbitrary HTTP response headers, so headers such as `frame-ancestors`, `X-Content-Type-Options`, and a strict `Permissions-Policy` still need a hosting layer that supports custom headers. The current CSP is delivered as a meta policy; the `style-src 'unsafe-inline'` allowance remains because the app uses inline/dynamic style attributes.
+- Before adding accounts, payments, uploads, or private user data, use a backend with authentication, per-user authorization rules, server-side validation, rate limits, monitoring, and a separate security review.
 
+
+## Interface refresh (November 21, 2026)
+
+- The home screen now has a focused search-first layout, with video-link playback as a secondary action, a compact topic strip, and clearer history/feed sections.
+- Search results use a dedicated, quieter layout that hides home discovery elements while searching. The layout adapts from mobile to desktop and respects reduced-motion settings.
+- The interface uses local CSS and system fonts; no external font or JavaScript CDN was added.
 
 ## Player update (November 2026)
 
