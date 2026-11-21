@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' https://i.ytimg.com https://*.ytimg.com; font-src 'self'; frame-src https://www.youtube.com; connect-src 'self' https://inv.nadeko.net https://invidious.nerdvpn.de https://yt.chocolatemoo53.com https://invidious.tiekoetter.com https://www.youtube.com; media-src 'self' https://googlevideo.com https://*.googlevideo.com blob:; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,7 +12,7 @@
 <meta name="theme-color" content="#0a0d14">
 <meta name="description" content="Malek Tube — discover videos, build your queue, and pick up where you left off.">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://i.ytimg.com https://*.ytimg.com; frame-src https://www.youtube.com; connect-src 'self' https://inv.nadeko.net https://invidious.nerdvpn.de https://yt.chocolatemoo53.com https://invidious.tiekoetter.com https://www.youtube.com; media-src 'self' https://*.googlevideo.com blob:; worker-src 'self'">
+
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Malek Tube</title>
@@ -353,7 +354,7 @@ body{
   <section id="searchArea" aria-label="Search">
     <div class="search-label"><span>SEARCH VIDEOS</span><span class="search-shortcut">PRESS ENTER TO EXPLORE</span></div>
     <div id="searchLine">
-      <input id="searchInput" dir="auto" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Search…" aria-label="Search">
+      <input id="searchInput" dir="auto" type="search" maxlength="200" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Search…" aria-label="Search">
       <button id="searchBtn" type="button" aria-label="Search" data-a="searchBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     </div>
     <div id="suggestions" role="listbox" aria-label="Suggestions" hidden></div>
@@ -361,7 +362,7 @@ body{
   <div class="link-entry">
     <div class="utility-label"><span>OR PLAY FROM A LINK</span><span>YOUTUBE VIDEO OR PLAYLIST</span></div>
     <div id="linkRow">
-      <input id="url" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Paste a video or playlist link" aria-label="Link">
+      <input id="url" type="text" maxlength="2048" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Paste a video or playlist link" aria-label="Link">
       <button id="paste" type="button" aria-label="Paste" data-a="paste"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/></svg></button>
       <button id="go" type="button" aria-label="Play" data-a="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
     </div>
@@ -435,6 +436,6 @@ body{
 
 
 
-<script src="./app.js?v=16" defer></script>
+<script src="./app.js?v=17" defer></script>
 </body>
 </html>

@@ -55,3 +55,15 @@ Serve the repository over HTTPS (for example, GitHub Pages). The manifest and se
 - If YouTube reports that autoplay was blocked, the app shows a visible message and leaves the central Play button available. Player errors show a separate message instead of leaving an unresponsive-looking screen.
 - The app script URL is versioned. The service worker shell cache was bumped and the app script/document use network-first requests, with a cached fallback for offline access. This prevents old cached JavaScript from silently replacing the deployed version during normal online use.
 - A browser may still block unmuted autoplay based on its own policy. In that case the user must tap the central Play control; the site cannot override browser autoplay restrictions.
+
+
+## Security hardening (November 21, 2026)
+
+- The page now uses a default-deny Content Security Policy with explicit allowlists for its own script, styles, thumbnails, YouTube embed, the four public video-search instances, YouTube oEmbed, Google video streams, the service worker, and the web manifest. Inline script attributes are blocked; no inline JavaScript handlers are used.
+- Trusted Types enforcement is enabled with no application-created Trusted Types policy. The app no longer writes HTML strings into DOM injection sinks; runtime icons and loading placeholders are constructed with DOM APIs.
+- API paths are checked to remain within the expected `/api/v1/` namespace before being sent to a fixed HTTPS provider allowlist.
+- Cached watch-history and feed objects are validated and bounded before use. Invalid video IDs, malformed fields, duplicate records, oversized text, and unusually large cached objects are ignored.
+- Search text and pasted-link input have conservative length limits. No third-party JavaScript library or runtime dependency was added. The service-worker shell cache was advanced to v17 so the security update is not hidden behind an older cached app shell.
+- The app still stores history and preferences in browser local storage without encryption. Anyone able to use or inspect the same browser profile/device may see them. Search suggestions, search terms, recommendation queries, and video IDs are sent to public third-party providers; YouTube also receives playback requests. This static app has no account system or private server-side storage.
+- The policy is delivered as a CSP meta element. Meta-delivered CSP cannot enforce `frame-ancestors`; response-header protections such as `X-Frame-Options`, `X-Content-Type-Options`, and `Permissions-Policy` must be configured by a hosting layer that supports custom response headers. This repository-only code change cannot guarantee those host-level headers.
+- This is a conservative source hardening pass, not a formal penetration test. No browser/device test or third-party infrastructure audit is implied.
