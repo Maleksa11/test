@@ -23,7 +23,7 @@
   var customQueueActive=false,customQueueIds=[],customQueueIndex=-1,currentDurationHint=0;
   var customAdvanceTimer=0,lastAutoAdvanceId='';
   var currentVideoId='',currentTab='playlist',recommendedVideos=[],recommendedFor='',recommendationSeq=0;
-  var historyExpanded=false,HISTORY_LIMIT=500,HISTORY_PREVIEW=3,historySuppressedId='';
+  var historyExpanded=false,HISTORY_LIMIT=500,HISTORY_PREVIEW=3,historyDeleted=Object.create(null);
   var videoInfoCache=Object.create(null),videoInfoRequests=Object.create(null),videoInfoCacheOrder=[];
   function rememberVideoInfo(id,data){
     if(videoInfoCache[id])videoInfoCacheOrder=videoInfoCacheOrder.filter(function(x){return x!==id});
@@ -288,7 +288,7 @@
     currentVideoId=id;
     if(videoTitle)saveTitle(id,videoTitle);
     if(changed){
-      historySuppressedId='';
+      delete historyDeleted[id];
       var wasPlaying=playerHasStarted&&playing;
       dur=0;tcur=0;lastSec=-1;progressClockRunning=wasPlaying;lastClockAt=Date.now();lastRemoteTimeAt=lastClockAt;
       lastAutoAdvanceId='';
@@ -507,10 +507,10 @@
   // watch history (stored only on this device)
   function getHist(){try{var a=JSON.parse(ls('hist')||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
   function recordHistory(id){
-    if(!id||historySuppressedId===id)return Promise.resolve();
+    if(!id||historyDeleted[id])return Promise.resolve();
     var epoch=historyEpoch,wasCurrent=id===currentVideoId,position=wasCurrent?Math.floor(tcur||0):0,knownDuration=wasCurrent?Math.floor(dur||0):0;
     function add(d){
-      if(epoch!==historyEpoch||historySuppressedId===id)return;
+      if(epoch!==historyEpoch||historyDeleted[id])return;
       var h=getHist(),old=null;
       h=h.filter(function(e){if(e.i===id){old=e;return false}return true});
       var keywords=((d&&Array.isArray(d.keywords)&&d.keywords.length?d.keywords:(old&&old.k))||[]).slice(0,8).map(function(x){return String(x).slice(0,80)});
@@ -575,7 +575,8 @@
   }
   function removeHistoryItem(id){
     if(!validVideoId(id))return;
-    if(id===currentVideoId){historySuppressedId=id;clearTimeout(histTimer)}
+    historyDeleted[id]=true;
+    if(id===currentVideoId)clearTimeout(histTimer);
     var remaining=getHist().filter(function(item){return item.i!==id});
     ls('hist',JSON.stringify(remaining.slice(0,HISTORY_LIMIT)));
     drawHistory();
@@ -926,7 +927,7 @@
   }
   function fs(on){try{var d=document,e=d.documentElement;if(on){if(!d.fullscreenElement&&e.requestFullscreen){var r=e.requestFullscreen({navigationUI:'hide'});if(r&&r.catch)r.catch(function(){});return r}}else if(d.fullscreenElement&&d.exitFullscreen)d.exitFullscreen()}catch(x){}}
   function start(p,keepSavedPlaylist){
-    historySuppressedId='';
+    (p.vids||[]).forEach(function(id){delete historyDeleted[id]});
     if(!p||(!p.list&&(!Array.isArray(p.vids)||!p.vids.some(validVideoId))))return;
     if(!p.list)p.vids=p.vids.filter(validVideoId);
     if(!p.list&&!p.vids.length)return;
