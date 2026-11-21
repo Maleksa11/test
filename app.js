@@ -20,13 +20,13 @@
   Object.assign(L.en,{searchPh:'Search…',searching:'Searching…',ph:'Paste a video or playlist link',paste:'Paste',go:'Play',
     forYou:'For you',popular:'Popular picks',recent:'Recently watched',feedHint:'Watch a few videos and this page will learn what you like.',
     feedFail:'Could not load videos right now.',retry:'Try again',views:'views',results:'Results',clearHist:'Clear my history',
-    clearAsk:'Clear your watch history on this device?',install:'Install as an app',refresh:'Refresh',
+    clearAsk:'Clear your watch history on this device?',historyMore:'Show more',historyLess:'Show less',install:'Install as an app',refresh:'Refresh',
     loadingMore:'Loading more videos…',
     play:'Play',pause:'Pause',playerLoading:'Loading video…',playerTap:'Video is ready. Tap Play if it does not start.',playerError:'YouTube could not play this video. Try another video.'});
   Object.assign(L.ar,{searchPh:'ابحث…',searching:'جاري البحث…',ph:'الصق رابط فيديو أو قائمة تشغيل',paste:'لصق',go:'تشغيل',
     forYou:'لأجلك',popular:'مقترحات رائجة',recent:'شو شاهدت مؤخراً',feedHint:'شاهد بعض الفيديوهات وهاي الصفحة بتتعلم شو بتحب.',
     feedFail:'ما قدرت أحمّل الفيديوهات هلأ.',retry:'جرّب مرة ثانية',views:'مشاهدة',results:'النتائج',clearHist:'مسح سجلّي',
-    clearAsk:'مسح سجل المشاهدة من هالجهاز؟',install:'تثبيته كتطبيق',refresh:'تحديث',
+    clearAsk:'مسح سجل المشاهدة من هالجهاز؟',historyMore:'عرض المزيد',historyLess:'عرض أقل',install:'تثبيته كتطبيق',refresh:'تحديث',
     loadingMore:'جاري تحميل فيديوهات إضافية…',
     play:'تشغيل',pause:'إيقاف مؤقت',playerLoading:'جاري تحميل الفيديو…',playerTap:'الفيديو جاهز. اضغط تشغيل إذا ما بدأ لحاله.',playerError:'تعذّر تشغيل هذا الفيديو من يوتيوب. جرّب فيديو آخر.'});
   function setLang(l){
@@ -1171,4 +1171,4 @@
   });
 })();
 
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=12',{updateViaCache:'none'}).catch(function(){})
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=13',{updateViaCache:'none'}).catch(function(){})
