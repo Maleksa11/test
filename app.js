@@ -340,6 +340,10 @@
   function isStandaloneApp(){
     try{return !!(navigator.standalone===true||(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches))}catch(e){return false}
   }
+  function isIOSWebKitDevice(){
+    var ua=navigator.userAgent||'';
+    return /iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  }
   function requestPip(silent){
     if(!currentVideoId)return false;
     if(pipPreparedId!==currentVideoId||!pipVideo.currentSrc||pipVideo.readyState<1){
@@ -363,7 +367,7 @@
         }).catch(function(){if(!silent)hmsg(tr('pipFailed'))});
         return true;
       }
-      var iosStandalone=isStandaloneApp()&&/iPhone|iPad|iPod/i.test(navigator.userAgent||'');
+      var iosStandalone=isStandaloneApp()&&isIOSWebKitDevice();
       if(!iosStandalone&&typeof pipVideo.requestPictureInPicture==='function'&&document.pictureInPictureEnabled){
         var playPromise=pipVideo.play();
         var pipPromise=pipVideo.requestPictureInPicture();
