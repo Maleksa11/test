@@ -1093,7 +1093,7 @@
   initInfiniteScroll();
   renderChips();renderHome(false);drawHistory();
   var qm=location.search.match(/[?&]u=(.*)$/);
-  fill=ls('fill')==='1';viewMode=fill?1:0;slide.className=fill?'fill':'fit';
+  fill=false;viewMode=0;slide.className='fit';ls('fill','0');
   if(qm){var qu=qm[1];try{qu=decodeURIComponent(qu)}catch(e){}$('url').value=qu;run(qu)}
   if(ls('shuf')==='1'){shuffle=true;$('b-shuf').classList.add('on')}
   $('b-aud').onclick=function(){var on=stage.classList.toggle('aud');this.classList.toggle('on',on);ls('aud',on?'1':'0');if(on)cmd('setPlaybackQuality',['tiny'])};
