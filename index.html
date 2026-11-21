@@ -7,7 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Malek Tube">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0a0d14">
+<meta name="description" content="Malek Tube — discover videos, build your queue, and pick up where you left off.">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://i.ytimg.com https://*.ytimg.com data:; frame-src https://www.youtube.com; connect-src 'self' https://inv.nadeko.net https://invidious.nerdvpn.de https://yt.chocolatemoo53.com https://invidious.tiekoetter.com https://www.youtube.com; media-src 'self' https://*.googlevideo.com blob:; worker-src 'self'">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -174,27 +175,200 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 @media(max-width:420px){#history{grid-template-columns:1fr}.history-card img{width:92px;height:52px}}
 @media(min-width:700px){#feed,#results{gap:26px 18px}}
 @media (prefers-reduced-motion: reduce){#flash{transition:none}}
+
+/* ---------- Malek Tube premium interface ---------- */
+:root{
+  --bg:#090d14;--fg:#f4f6fb;--card:#111823;--mut:#929cad;--bd:#263142;--ac:#ff5b78;
+  color-scheme:dark;
+}
+html,body{min-height:100%;background:#090d14;color:var(--fg)}
+body{
+  overflow-x:hidden;
+  background:
+    radial-gradient(ellipse at 50% -18%,rgba(255,87,119,.13),transparent 38rem),
+    radial-gradient(ellipse at 100% 44%,rgba(74,108,166,.08),transparent 34rem),
+    #090d14;
+}
+#setup{width:min(100%,1240px);max-width:1240px;margin:0 auto;padding:0 clamp(18px,4.2vw,54px) 64px;min-height:100%;position:relative}
+#top{
+  min-height:76px;padding:0;justify-content:space-between;border-bottom:1px solid rgba(159,174,198,.13);
+  margin-bottom:0;position:relative;
+}
+#brand{gap:12px;font-size:19px;font-weight:780;letter-spacing:-.55px}
+.logo{
+  width:38px;height:38px;border-radius:13px;
+  background:linear-gradient(145deg,#ff5273 0%,#fb7a58 100%);
+  box-shadow:0 7px 24px rgba(255,82,115,.22),inset 0 1px 0 rgba(255,255,255,.28);
+}
+.logo svg{width:17px;height:17px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.18))}
+.top-meta{display:flex;align-items:center;gap:9px;color:#8290a3;font-size:10px;font-weight:750;letter-spacing:1.35px}
+.top-dot,.hero-kicker-mark{width:7px;height:7px;border-radius:50%;background:#65d6a5;box-shadow:0 0 13px rgba(101,214,165,.65)}
+#heroIntro{max-width:800px;margin:clamp(42px,7vh,78px) auto 34px;text-align:center}
+.hero-kicker{display:inline-flex;align-items:center;gap:10px;margin-bottom:19px;color:#b2bdce;font-size:10px;font-weight:800;letter-spacing:2px}
+.hero-kicker-mark{width:6px;height:6px;background:#ff6b86;box-shadow:0 0 12px rgba(255,107,134,.7)}
+#heroTitle{margin:0;color:#f7f8fc;font-size:clamp(40px,6.2vw,69px);line-height:1.04;letter-spacing:-3.6px;font-weight:820}
+#heroTitle span{color:#ff7089}
+#heroIntro p{max-width:560px;margin:18px auto 0;color:#98a4b6;font-size:15px;line-height:1.75}
+#searchArea{max-width:760px;margin:0 auto;position:relative;z-index:9}
+.search-label,.utility-label,.discovery-label{display:flex;align-items:center;justify-content:space-between;gap:14px;color:#9ba8ba;font-size:10px;font-weight:800;letter-spacing:1.45px}
+.search-label{margin:0 3px 10px}
+.search-shortcut,.utility-label span+span,.discovery-label span+span{color:#667387;font-size:9px;font-weight:700;letter-spacing:1.05px}
+#searchLine{
+  min-height:66px;gap:10px;padding:7px 8px 7px 20px;
+  border:1px solid #303b4c;border-radius:19px;
+  background:linear-gradient(120deg,rgba(21,30,44,.98),rgba(16,23,34,.98));
+  box-shadow:0 15px 48px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.035);
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+#searchLine:focus-within{border-color:rgba(255,106,134,.72);box-shadow:0 0 0 4px rgba(255,91,120,.1),0 18px 48px rgba(0,0,0,.3)}
+#searchInput{font-size:16px;color:#f4f6fb;padding:12px 0}
+#searchInput::placeholder{color:#7f8b9d;opacity:1}
+#searchBtn{
+  width:50px;height:50px;border-radius:14px;
+  background:linear-gradient(145deg,#ff5b78,#f27b5c);
+  box-shadow:0 7px 18px rgba(242,93,119,.2);transition:transform .15s ease,filter .15s ease;
+}
+#searchBtn:hover{filter:brightness(1.08)}#searchBtn:active{transform:scale(.96)}
+#searchBtn svg{width:20px;height:20px}
+#suggestions{top:calc(100% + 9px);border:1px solid #303a4b;border-radius:16px;background:#121a26;box-shadow:0 20px 48px rgba(0,0,0,.45);padding:5px}
+.suggestion{padding:13px 14px;border:0;border-radius:10px;color:#e7ebf2;font-size:14px;text-align:start}
+.suggestion:hover,.suggestion:focus-visible{background:#1d2939}
+.link-entry{max-width:760px;margin:23px auto 0}
+.utility-label{margin:0 3px 9px}
+#linkRow{gap:9px;margin:0}
+#url{min-height:47px;padding:11px 15px;border:1px solid #293548;border-radius:14px;background:rgba(17,24,35,.72);color:#eff2f8;font-size:14px}
+#url::placeholder{color:#748195}
+#url:focus{border-color:rgba(255,106,134,.65);outline:0;box-shadow:0 0 0 3px rgba(255,91,120,.08)}
+#paste,#go{width:48px;min-height:47px;border-radius:13px}
+#paste{border-color:#293548;background:#131c29;color:#c5cfdd}
+#paste:hover{background:#1a2636}
+#go{background:linear-gradient(145deg,#ff5b78,#f27b5c);box-shadow:0 7px 18px rgba(242,93,119,.16)}
+.privacy-note{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px auto 0;color:#758398;font-size:11px;line-height:1.5;text-align:center}
+.privacy-note svg{width:15px;height:15px;flex:none;stroke:#72cba5;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.discovery-label{max-width:100%;margin:39px 2px 12px;padding-bottom:11px;border-bottom:1px solid rgba(159,174,198,.13)}
+#chips{margin:0 -3px;padding:2px 3px 5px;gap:8px}
+.chip{border:1px solid #293548;background:rgba(17,24,35,.68);color:#aeb9c9;border-radius:999px;padding:9px 16px;font-size:12px;font-weight:720;transition:background .15s,border-color .15s,color .15s,transform .15s}
+.chip:hover{border-color:#53637b;color:#f1f4fa;transform:translateY(-1px)}
+.chip.on{border-color:rgba(255,106,134,.4);background:rgba(255,91,120,.13);color:#ff8ba0;box-shadow:inset 0 0 0 1px rgba(255,91,120,.06)}
+#historyWrap{margin-top:34px}
+.sec{margin:36px 0 16px;gap:14px}
+.sec h2{font-size:20px;font-weight:780;letter-spacing:-.65px;color:#f1f4fa}
+#historyWrap .sec{margin-top:0}
+#feed,#results{grid-template-columns:repeat(auto-fill,minmax(min(100%,255px),1fr));gap:28px 19px}
+.vcard{gap:11px;border-radius:15px;cursor:pointer;min-width:0}
+.thumb{border:1px solid rgba(164,180,203,.12);border-radius:15px;background:#141d2a;box-shadow:0 8px 22px rgba(0,0,0,.13);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.thumb img{transition:transform .35s ease}
+.vcard:hover .thumb{transform:translateY(-3px);border-color:rgba(255,112,137,.32);box-shadow:0 13px 32px rgba(0,0,0,.27)}
+.vcard:hover .thumb img{transform:scale(1.025)}
+.thumb em{inset-inline-end:9px;bottom:9px;padding:4px 7px;border:1px solid rgba(255,255,255,.12);border-radius:7px;background:rgba(5,8,13,.82);font-size:10px;letter-spacing:.2px}
+.vmeta{gap:5px;padding:0 3px}
+.vmeta b{font-size:14px;line-height:1.45;font-weight:680;color:#edf1f7}
+.vmeta small{font-size:11.5px;line-height:1.55;color:#8491a3}
+.vcard:focus-visible{outline:2px solid #ff718c;outline-offset:5px;border-radius:16px}
+.vcard.sk .thumb,.vcard.sk .vmeta b,.vcard.sk .vmeta small{background:linear-gradient(100deg,#151e2a 20%,#202b3a 40%,#151e2a 60%);background-size:220% 100%;animation:cardShimmer 1.5s ease-in-out infinite}
+@keyframes cardShimmer{to{background-position-x:-220%}}
+#feedHint{margin:-3px 0 17px;color:#8d9aae;font-size:13px}
+#histClear{min-height:36px;border:1px solid #2c394b;border-radius:11px;background:#131c29;color:#aeb9c9;padding:8px 12px;font-size:11px;font-weight:700}
+#histClear:hover{border-color:#53637b;color:#f3f5f9}
+.secActions{gap:9px}
+.icb{width:38px;height:38px;border-color:#293548;background:#131c29;color:#bec8d6;transition:background .15s,border-color .15s}
+.icb:hover{background:#1b2838;border-color:#51617a}
+#history{grid-template-columns:repeat(auto-fill,minmax(min(100%,275px),1fr));gap:10px 12px}
+.history-card{border:1px solid #273346;border-radius:13px;background:rgba(17,24,35,.76);padding:8px;transition:border-color .16s,background .16s}
+.history-card:hover{border-color:#46566e;background:#151f2d}
+.history-play{gap:11px}
+.history-card img{border-radius:8px}
+.history-copy b{color:#e7ecf4;font-size:12.5px}
+.history-copy small{color:#7f8da1}
+.history-progress{background:#293548}
+.history-toggle{border-color:#2c394b;background:#131c29;color:#aeb9c9;border-radius:999px;font-size:11px}
+.history-toggle:hover{border-color:#53637b;color:#f3f5f9}
+#foot{margin-top:54px;padding-top:19px;border-color:rgba(159,174,198,.14);color:#79869a}
+#foot details{padding:0 2px}
+#foot summary{color:#aeb9c9;font-size:12px;letter-spacing:.1px}
+#foot details p{max-width:850px;color:#7f8da1;font-size:12px;line-height:1.8}
+.load-status{color:#8896aa}
+.load-spinner{border-color:#2c394b;border-top-color:#ff7089}
+.results-head{align-items:center;margin:29px 0 12px;padding-bottom:16px;border-bottom:1px solid rgba(159,174,198,.14)}
+.section-kicker{margin-bottom:5px;color:#ff8197;font-size:9px;font-weight:850;letter-spacing:1.8px}
+.results-head h2{max-width:min(80vw,900px);font-size:clamp(22px,3vw,30px);overflow-wrap:anywhere}
+.search-status{margin:0 0 17px;color:#8d9aae;font-size:13px}
+#setup:has(#resultsWrap:not([hidden])) #heroIntro,
+#setup:has(#resultsWrap:not([hidden])) .link-entry,
+#setup:has(#resultsWrap:not([hidden])) .privacy-note,
+#setup:has(#resultsWrap:not([hidden])) .discovery-label,
+#setup:has(#resultsWrap:not([hidden])) #chips,
+#setup:has(#resultsWrap:not([hidden])) #historyWrap,
+#setup:has(#resultsWrap:not([hidden])) #feedWrap{display:none!important}
+#setup:has(#resultsWrap:not([hidden])) #top{min-height:66px;margin-bottom:18px}
+#setup:has(#resultsWrap:not([hidden])) #searchArea{max-width:100%;margin:0 auto}
+#setup:has(#resultsWrap:not([hidden])) .search-label{display:none}
+#setup:has(#resultsWrap:not([hidden])) #searchLine{min-height:56px;border-radius:16px}
+#setup:has(#resultsWrap:not([hidden])) #searchBtn{width:42px;height:42px}
+#setup:has(#resultsWrap:not([hidden])) .results-head{margin-top:29px}
+@media(max-width:760px){
+  #setup{padding-left:20px;padding-right:20px}
+  #top{min-height:68px}
+  .top-meta{font-size:8px;letter-spacing:1px}
+  #heroIntro{margin-top:48px;margin-bottom:30px}
+  #heroTitle{font-size:clamp(39px,8.5vw,57px);letter-spacing:-2.4px}
+  #heroIntro p{font-size:13px;max-width:420px}
+  #feed,#results{grid-template-columns:repeat(2,minmax(0,1fr));gap:21px 13px}
+  #history{grid-template-columns:1fr}
+  .sec{margin-top:29px}
+}
+@media(max-width:390px){
+  #setup{padding-left:15px;padding-right:15px}
+  #heroTitle{font-size:38px;letter-spacing:-2px}
+  .search-shortcut,.utility-label span+span,.discovery-label span+span{display:none}
+  #feed,#results{gap:18px 11px}
+  .vmeta b{font-size:12.5px}
+  .vmeta small{font-size:10.5px}
+  #playerActions{gap:8px}
+}
+@media(min-width:1180px){
+  #feed,#results{grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 22px}
+}
+@media(hover:none){
+  .vcard:hover .thumb{transform:none;box-shadow:0 8px 22px rgba(0,0,0,.13)}
+  .vcard:hover .thumb img{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
 <main id="setup">
   <header id="top">
     <div id="brand"><div class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></div><span>Malek Tube</span></div>
+    <div class="top-meta"><span class="top-dot" aria-hidden="true"></span><span>YOUR PERSONAL VIDEO SPACE</span></div>
   </header>
+  <section id="heroIntro" aria-labelledby="heroTitle">
+    <div class="hero-kicker"><span class="hero-kicker-mark" aria-hidden="true"></span><span>DISCOVER · WATCH · REPEAT</span></div>
+    <h1 id="heroTitle">Find something<br class="hero-break"> <span>worth watching.</span></h1>
+    <p>Search what you love. Find your next favourite. Pick up right where you left off.</p>
+  </section>
   <section id="searchArea" aria-label="Search">
+    <div class="search-label"><span>SEARCH VIDEOS</span><span class="search-shortcut">PRESS ENTER TO EXPLORE</span></div>
     <div id="searchLine">
       <input id="searchInput" dir="auto" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Search…" aria-label="Search">
       <button id="searchBtn" type="button" aria-label="Search" data-a="searchBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     </div>
     <div id="suggestions" role="listbox" aria-label="Suggestions" hidden></div>
   </section>
-  <div id="linkRow">
-    <input id="url" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Paste a video or playlist link" aria-label="Link">
-    <button id="paste" type="button" aria-label="Paste" data-a="paste"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/></svg></button>
-    <button id="go" type="button" aria-label="Play" data-a="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
+  <div class="link-entry">
+    <div class="utility-label"><span>OR PLAY FROM A LINK</span><span>YOUTUBE VIDEO OR PLAYLIST</span></div>
+    <div id="linkRow">
+      <input id="url" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Paste a video or playlist link" aria-label="Link">
+      <button id="paste" type="button" aria-label="Paste" data-a="paste"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/></svg></button>
+      <button id="go" type="button" aria-label="Play" data-a="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
+    </div>
   </div>
   <div id="err" role="alert"></div>
-  <div id="searchStatus" class="note" role="status" aria-live="polite"></div>
+  <div class="privacy-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6z"/><path d="m8.5 12 2.2 2.2 4.8-4.8"/></svg><span>Your watch history is saved on this device. Searches are sent to video-search providers.</span></div>
+  <div class="discovery-label"><span>EXPLORE BY INTEREST</span><span>FIND YOUR NEXT FAVOURITE</span></div>
   <nav id="chips" aria-label="Topics"></nav>
   <section id="historyWrap" hidden>
     <div class="sec"><h2 data-t="recent">Recently watched</h2><button id="historyToggle" class="history-toggle" type="button" aria-expanded="false" hidden>Show more</button></div>
@@ -208,7 +382,8 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
     <div id="feedSentinel" class="feed-sentinel" aria-hidden="true"></div>
   </section>
   <section id="resultsWrap" hidden>
-    <div class="sec"><h2 id="resTitle">Results</h2><button id="resClose" class="icb" type="button" aria-label="Close" data-a="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="sec results-head"><div><div class="section-kicker">SEARCH RESULTS</div><h2 id="resTitle">Results</h2></div><button id="resClose" class="icb" type="button" aria-label="Close" data-a="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div id="searchStatus" class="note search-status" role="status" aria-live="polite"></div>
     <div id="results" aria-label="Results"></div>
     <div id="resultsLoading" class="load-status" role="status" aria-live="polite" hidden><span class="load-spinner" aria-hidden="true"></span><span data-t="loadingMore">Loading more videos…</span></div>
     <div id="resultsSentinel" class="feed-sentinel" aria-hidden="true"></div>
